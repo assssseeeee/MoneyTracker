@@ -1,0 +1,30 @@
+package com.example.moneytracker.data;
+
+import android.content.ContentResolver;
+import android.net.Uri;
+import android.provider.BaseColumns;
+
+public class MoneyTrackerContract {
+
+    public static final int DATA_BASE_VERSION = 1;
+    public static final String DATA_BASE_NAME = "moneyDB";
+    public static final String SHEME = "content://";
+    public static final String AUTHORITY = "com.example.moneytracker";
+    public static final String PATH_EXPENSES = "expenses";
+    public static final Uri BASE_CONTENT_URI = Uri.parse(SHEME + AUTHORITY);
+
+    public static final class AddingExpenses implements BaseColumns {
+        public static final String TABLE_NAME = "tableExpenses";
+        public static final String _ID = BaseColumns._ID;
+        public static final String COLUMN_PRODUCT_NAME = "productName";
+        public static final String COLUMN_PRODUCT_PRICE = "productPrice";
+
+
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_EXPENSES);
+//        public static final String CONTENT_MULTIPLE_ITEMS = ContentResolver.
+
+
+
+
+    }
+}
