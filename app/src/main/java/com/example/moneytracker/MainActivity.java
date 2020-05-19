@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         Item(String name, double price) {
             this.name = name;
             this.price = price;
+
+            
         }
     }
 
