@@ -9,6 +9,8 @@ import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    
+
 
     public DatabaseHelper(Context context) {
         super(context, MoneyTrackerContract.DATA_BASE_NAME, null, MoneyTrackerContract.DATA_BASE_VERSION);
