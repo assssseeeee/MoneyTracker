@@ -16,7 +16,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/editTextProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding_small"
@@ -25,7 +25,7 @@
             android:hint="@string/enter_product_name" />
 
         <EditText
-            android:id="@+id/price"
+            android:id="@+id/editTextPrice"
             android:inputType="numberDecimal"
             android:layout_width="@dimen/padding"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:hint="@string/coast"/>
 
         <Button
-            android:id="@+id/button_add"
+            android:id="@+id/buttonAddProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"

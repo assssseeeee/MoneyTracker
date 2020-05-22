@@ -2,21 +2,58 @@ package com.example.moneytracker.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class MoneyTrackerContentProvider extends ContentProvider {
+
+    DatabaseHelper databaseHelper;
+
+    private static final int EXPENSES = 111;
+    private static final int EXPENSES_ID = 222;
+
+    private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+    static{
+        uriMatcher.addURI(MoneyTrackerContract.AUTHORITY, MoneyTrackerContract.PATH_EXPENSES, EXPENSES);
+        uriMatcher.addURI(MoneyTrackerContract.AUTHORITY, MoneyTrackerContract.PATH_EXPENSES, EXPENSES_ID);
+    }
+
+
     @Override
     public boolean onCreate() {
-        return false;
+        databaseHelper = new DatabaseHelper(getContext());
+        return true;
     }
 
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor;
+
+        int match = uriMatcher.match(uri);
+
+        switch (match){
+
+            case EXPENSES:
+
+                cursor = db.query(Mo)
+
+                break;
+            case EXPENSES_ID:
+                break;
+
+        }
+
+
+
         return null;
     }
 

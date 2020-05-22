@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
         Item(String name, double price) {
             this.name = name;
             this.price = price;
-
-            
         }
     }
 
@@ -35,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final EditText name = (EditText) findViewById(R.id.name);
-        final EditText price = (EditText) findViewById(R.id.price);
-        final Button add = (Button) findViewById(R.id.button_add);
+        final EditText name = (EditText) findViewById(R.id.editTextProduct);
+        final EditText price = (EditText) findViewById(R.id.editTextPrice);
+        final Button add = (Button) findViewById(R.id.buttonAddProduct);
         final ListView items = (ListView) findViewById(R.id.items);
         final ItemsAdapter adapter = new ItemsAdapter();
         items.setAdapter(adapter);
@@ -83,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
