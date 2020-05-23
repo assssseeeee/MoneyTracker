@@ -111,11 +111,65 @@ public class MoneyTrackerContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        int rowsDeleted;
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
+        int match = uriMatcher.match(uri);
+        switch (match) {
+
+            case EXPENSES:
+                rowsDeleted = db.delete(AddingExpenses.TABLE_NAME, selection, selectionArgs);
+                break;
+            case EXPENSES_ID:
+                selection = AddingExpenses._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                rowsDeleted = db.delete(AddingExpenses.TABLE_NAME, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Can't delete incorrect URI " + uri);
+        }
+
+        if (rowsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowsDeleted;
     }
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+
+        if (values.containsKey(AddingExpenses.COLUMN_PRODUCT_NAME)) {
+            String productName = values.getAsString(AddingExpenses.COLUMN_PRODUCT_NAME);
+            if (productName == null) {
+                throw new IllegalArgumentException("You have to input product name ");
+            }
+        }
+
+        if (values.containsKey(AddingExpenses.COLUMN_PRODUCT_PRICE)) {
+            String productPrice = values.getAsString(AddingExpenses.COLUMN_PRODUCT_PRICE);
+            if (productPrice == null) {
+                throw new IllegalArgumentException("You have to input product price");
+            }
+        }
+
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        int match = uriMatcher.match(uri);
+        int rowsUpdated;
+
+        switch (match) {
+            case EXPENSES:
+                rowsUpdated = db.update(AddingExpenses.TABLE_NAME, values, selection, selectionArgs);
+                break;
+            case EXPENSES_ID:
+                selection = AddingExpenses._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                rowsUpdated = db.update(AddingExpenses.TABLE_NAME, values, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Can't update nicorrect URI " + uri);
+        }
+
+        return rowsUpdated;
     }
 }
