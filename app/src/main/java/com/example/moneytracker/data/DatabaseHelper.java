@@ -15,11 +15,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String CREATE_MEMBERS_TABLE = "CREATE TABLE " + MoneyTrackerContract.AddingExpenses.TABLE_NAME
+        String CREATE_EXPENSES_TABLE = "CREATE TABLE " + MoneyTrackerContract.AddingExpenses.TABLE_NAME
                 + "(" + MoneyTrackerContract.AddingExpenses._ID + " INTEGER PRIMARY KEY,"
                 + MoneyTrackerContract.AddingExpenses.COLUMN_PRODUCT_NAME + " TEXT,"
                 + MoneyTrackerContract.AddingExpenses.COLUMN_PRODUCT_PRICE + " TEXT" + ")";
-        db.execSQL(CREATE_MEMBERS_TABLE);
+        db.execSQL(CREATE_EXPENSES_TABLE);
 
     }
 
