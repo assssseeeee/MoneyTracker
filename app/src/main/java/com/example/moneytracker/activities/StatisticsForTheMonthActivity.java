@@ -1,10 +1,12 @@
-package com.example.moneytracker;
+package com.example.moneytracker.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class StatisticsForTheMonth extends AppCompatActivity {
+import com.example.moneytracker.R;
+
+public class StatisticsForTheMonthActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

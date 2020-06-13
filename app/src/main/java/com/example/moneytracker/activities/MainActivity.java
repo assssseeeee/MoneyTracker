@@ -1,21 +1,16 @@
-package com.example.moneytracker;
+package com.example.moneytracker.activities;
 
 import  androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.moneytracker.R;
 
 public class MainActivity extends AppCompatActivity {
 
