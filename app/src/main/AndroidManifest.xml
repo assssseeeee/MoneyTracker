@@ -9,54 +9,50 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".PurchaseHistory"
             android:label="@string/menu_purchase_history">
             <intent-filter>
                 <action android:name="android.intent.action.PURCHASE_HISTORY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".StatisticsForTheMonth"
             android:label="@string/menu_statistics_for_the_month">
             <intent-filter>
                 <action android:name="android.intent.action.STATISTICS_FOR_THE_MOUTH" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".StatisticsForTheYear"
             android:label="@string/menu_statistics_for_the_year">
             <intent-filter>
                 <action android:name="android.intent.action.STATISTICS_FOR_THE_YEAR" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@menu/menu_main" />
 
         <provider
-            android:authorities="com.example.moneytracker"
             android:name=".data.MoneyTrackerContentProvider"
+            android:authorities="com.example.moneytracker"
             android:exported="false" />
     </application>
 

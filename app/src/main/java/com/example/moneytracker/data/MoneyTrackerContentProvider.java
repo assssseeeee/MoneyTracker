@@ -29,7 +29,6 @@ public class MoneyTrackerContentProvider extends ContentProvider {
         uriMatcher.addURI(MoneyTrackerContract.AUTHORITY, MoneyTrackerContract.PATH_EXPENSES, EXPENSES_ID);
     }
 
-
     @Override
     public boolean onCreate() {
         databaseHelper = new DatabaseHelper(getContext());
