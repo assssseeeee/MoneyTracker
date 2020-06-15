@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
+
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,9 +34,7 @@ public class MainActivity extends AppCompatActivity
     Button buttonAddProduct;
     ListView listViewProduct;
     ExpensesCursorAdapter expensesCursorAdapter;
-    private static final int EDIT_PRODUCT_LOADER = 111;
     private static final int PRODUCT_LOADER = 123;
-    Uri currentProductUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +50,13 @@ public class MainActivity extends AppCompatActivity
         listViewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent = new Intent(MainActivity.this, ProductChangeActivity.class);
+                Uri currentProductUri = ContentUris.withAppendedId(AddingExpenses.CONTENT_URI, id);
+                intent.setData(currentProductUri);
+                startActivity(intent);
             }
         });
+        getSupportLoaderManager().initLoader(PRODUCT_LOADER, null, this);
     }
 
     @Override
@@ -90,66 +94,19 @@ public class MainActivity extends AppCompatActivity
         String[] projection = {AddingExpenses._ID,
                 AddingExpenses.COLUMN_PRODUCT_NAME,
                 AddingExpenses.COLUMN_PRODUCT_PRICE};
-        return new CursorLoader(this, currentProductUri, projection, null, null, null);
+        CursorLoader cursorLoader = new CursorLoader(this,
+                AddingExpenses.CONTENT_URI, projection, null, null, null);
+        return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        if(data.moveToFirst()){
-            int productNameColumnIndex = data.getColumnIndex(AddingExpenses.COLUMN_PRODUCT_NAME);
-            int productpriceColumnIndex = data.getColumnIndex(AddingExpenses.COLUMN_PRODUCT_PRICE);
-
-            String productName = data.getString(productNameColumnIndex);
-            String productprice = data.getString(productpriceColumnIndex);
-
-            editTextProduct.setText(productName);
-            editTextPrice.setText(productprice);
-        }
+        expensesCursorAdapter.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-
-    }
-
-    private void saveProduct() {
-        String productName = editTextProduct.getText().toString().trim();
-        String productPrice = editTextPrice.getText().toString().trim();
-
-        if (TextUtils.isEmpty(productName)) {
-            Toast.makeText(this, R.string.toast_enter_product_name, Toast.LENGTH_SHORT).show();
-            return;
-        } else if (TextUtils.isEmpty(productPrice)) {
-            Toast.makeText(this, R.string.toast_enter_product_price, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(AddingExpenses.COLUMN_PRODUCT_NAME, productName);
-        contentValues.put(AddingExpenses.COLUMN_PRODUCT_PRICE, productPrice);
-
-        if (currentProductUri == null) {
-            ContentResolver contentResolver = getContentResolver();
-            Uri uri = contentResolver.insert(AddingExpenses.CONTENT_URI, contentValues);
-
-            if (uri == null) {
-                Toast.makeText(this, "Insertion of data in the table failed for \" + uri",
-                        Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, R.string.toast_product_saved,
-                        Toast.LENGTH_LONG).show();
-            }
-        } else {
-            int rowsChanget = getContentResolver().update(currentProductUri, contentValues, null, null);
-
-            if (rowsChanget == 0) {
-                Toast.makeText(this, "Saving of data in the table failed for \" + uri",
-                        Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, R.string.toast_product_updated,
-                        Toast.LENGTH_LONG).show();
-            }
-        }
+        expensesCursorAdapter.swapCursor(null);
     }
 }
 

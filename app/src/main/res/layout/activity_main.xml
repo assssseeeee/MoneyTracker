@@ -49,5 +49,5 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/padding_small"
         android:divider="@android:color/transparent"
-        tools:listitem="@layout/expenses_item" />
+        tools:listitem="@layout/expenses_item"/>
 </LinearLayout>

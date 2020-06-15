@@ -14,8 +14,15 @@
     <string name="toast_enter_product_price">Введите цену товара</string>
     <string name="toast_product_updated">Запись обновлена</string>
     <string name="toast_product_saved">Запись сохранена</string>
+    <string name="toast_product_delete_failed">Удаление записи невозможно</string>
+    <string name="toast_product_delete_succsess">Запись удалена</string>
 
     <!--Buttons-->
     <string name="button_save_product">сохранить</string>
     <string name="button_delete_product">удалить</string>
+
+    <!--Titles-->
+    <string name="title_add_product">Добавьте товар</string>
+    <string name="title_edit_product">Измените товар</string>
+
 </resources>
