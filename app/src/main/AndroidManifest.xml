@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.ProductChangeActivity"></activity>
         <activity
             android:name=".PurchaseHistory"
             android:label="@string/menu_purchase_history">

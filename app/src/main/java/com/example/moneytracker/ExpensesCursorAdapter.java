@@ -10,16 +10,14 @@ import android.widget.TextView;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
 public class ExpensesCursorAdapter extends CursorAdapter {
-
-
     public ExpensesCursorAdapter(Context context, Cursor c, boolean autoRequery) {
         super(context, c, autoRequery);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-
-        return LayoutInflater.from(context).inflate(R.layout.expenses_item, parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.expenses_item, parent,
+                false);
     }
 
     @Override
@@ -28,8 +26,10 @@ public class ExpensesCursorAdapter extends CursorAdapter {
         TextView itemNameTextView = view.findViewById(R.id.itemName);
         TextView itemPriceTextView = view.findViewById(R.id.itemPrice);
 
-        String itemName = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_NAME));
-        String itemPrice = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_PRICE));
+        String itemName = cursor.getString
+                (cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_NAME));
+        String itemPrice = cursor.getString
+                (cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_PRICE));
 
         itemNameTextView.setText(itemName);
         itemPriceTextView.setText(itemPrice);
