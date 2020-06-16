@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ProductChangeActivity"></activity>
+        <activity android:name=".activities.ProductChangeActivity">
+
+        </activity>
         <activity
-            android:name=".PurchaseHistory"
+            android:name=".activities.PurchaseHistoryActivity"
             android:label="@string/menu_purchase_history">
             <intent-filter>
                 <action android:name="android.intent.action.PURCHASE_HISTORY" />
@@ -20,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StatisticsForTheMonth"
+            android:name=".activities.StatisticsForTheMonthActivity"
             android:label="@string/menu_statistics_for_the_month">
             <intent-filter>
                 <action android:name="android.intent.action.STATISTICS_FOR_THE_MOUTH" />
@@ -29,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StatisticsForTheYear"
+            android:name=".activities.StatisticsForTheYearActivity"
             android:label="@string/menu_statistics_for_the_year">
             <intent-filter>
                 <action android:name="android.intent.action.STATISTICS_FOR_THE_YEAR" />

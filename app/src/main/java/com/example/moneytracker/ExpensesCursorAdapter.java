@@ -16,20 +16,17 @@ public class ExpensesCursorAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(R.layout.expenses_item, parent,
-                false);
+        return LayoutInflater.from(context).inflate(R.layout.expenses_item, parent, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        TextView itemNameTextView = view.findViewById(R.id.itemName);
-        TextView itemPriceTextView = view.findViewById(R.id.itemPrice);
+        TextView itemNameTextView = view.findViewById(R.id.itemNameTextView);
+        TextView itemPriceTextView = view.findViewById(R.id.itemPriceTextView);
 
-        String itemName = cursor.getString
-                (cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_NAME));
-        String itemPrice = cursor.getString
-                (cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_PRICE));
+        String itemName = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_NAME));
+        String itemPrice = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_PRICE));
 
         itemNameTextView.setText(itemName);
         itemPriceTextView.setText(itemPrice);

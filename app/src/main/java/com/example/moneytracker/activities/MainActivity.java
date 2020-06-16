@@ -31,15 +31,17 @@ import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final int PRODUCT_LOADER = 123;
     EditText editTextProduct, editTextPrice;
     Button buttonAddProduct;
     ListView listViewProduct;
     ExpensesCursorAdapter expensesCursorAdapter;
-    private static final int PRODUCT_LOADER = 123;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         editTextProduct = findViewById(R.id.editTextProduct);
         editTextPrice = findViewById(R.id.editTextPrice);
@@ -58,6 +60,29 @@ public class MainActivity extends AppCompatActivity
             }
         });
         getSupportLoaderManager().initLoader(PRODUCT_LOADER, null, this);
+    }
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        String[] projection = {
+                AddingExpenses._ID,
+                AddingExpenses.COLUMN_PRODUCT_NAME,
+                AddingExpenses.COLUMN_PRODUCT_PRICE,
+        };
+
+        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, null, null, null);
+        return cursorLoader;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        expensesCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        expensesCursorAdapter.swapCursor(null);
     }
 
     @Override
@@ -90,27 +115,6 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @NonNull
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        String[] projection = {AddingExpenses._ID,
-                AddingExpenses.COLUMN_PRODUCT_NAME,
-                AddingExpenses.COLUMN_PRODUCT_PRICE};
-        CursorLoader cursorLoader = new CursorLoader(this,
-                AddingExpenses.CONTENT_URI, projection, null, null, null);
-        return cursorLoader;
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        expensesCursorAdapter.swapCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-        expensesCursorAdapter.swapCursor(null);
     }
 }
 

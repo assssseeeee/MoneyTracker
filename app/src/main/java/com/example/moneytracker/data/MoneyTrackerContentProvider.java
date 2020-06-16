@@ -12,21 +12,17 @@ import android.widget.Toast;
 
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 public class MoneyTrackerContentProvider extends ContentProvider {
 
     DatabaseHelper databaseHelper;
 
     private static final int EXPENSES = 111;
     private static final int EXPENSES_ID = 222;
-
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         uriMatcher.addURI(MoneyTrackerContract.AUTHORITY, MoneyTrackerContract.PATH_EXPENSES, EXPENSES);
-        uriMatcher.addURI(MoneyTrackerContract.AUTHORITY, MoneyTrackerContract.PATH_EXPENSES, EXPENSES_ID);
+        uriMatcher.addURI(MoneyTrackerContract.AUTHORITY, MoneyTrackerContract.PATH_EXPENSES + "/#", EXPENSES_ID);
     }
 
     @Override
@@ -35,14 +31,12 @@ public class MoneyTrackerContentProvider extends ContentProvider {
         return true;
     }
 
-    @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         Cursor cursor;
-        int match = uriMatcher.match(uri);
 
+        int match = uriMatcher.match(uri);
         switch (match) {
             case EXPENSES:
                 cursor = db.query(AddingExpenses.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
@@ -55,14 +49,12 @@ public class MoneyTrackerContentProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Can't query incorrect URI " + uri);
         }
-
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }
 
-    @Nullable
     @Override
-    public String getType(@NonNull Uri uri) {
+    public String getType(Uri uri) {
         int match = uriMatcher.match(uri);
 
         switch (match) {
@@ -75,9 +67,8 @@ public class MoneyTrackerContentProvider extends ContentProvider {
         }
     }
 
-    @Nullable
     @Override
-    public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+    public Uri insert(Uri uri, ContentValues values) {
 
         String productName = values.getAsString(AddingExpenses.COLUMN_PRODUCT_NAME);
         if (productName == null) {
@@ -109,7 +100,7 @@ public class MoneyTrackerContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
         int rowsDeleted;
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
@@ -131,12 +122,11 @@ public class MoneyTrackerContentProvider extends ContentProvider {
         if (rowsDeleted != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
-
         return rowsDeleted;
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
         if (values.containsKey(AddingExpenses.COLUMN_PRODUCT_NAME)) {
             String productName = values.getAsString(AddingExpenses.COLUMN_PRODUCT_NAME);
@@ -168,7 +158,6 @@ public class MoneyTrackerContentProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Can't update nicorrect URI " + uri);
         }
-
         return rowsUpdated;
     }
 }
