@@ -51,7 +51,7 @@
                 android:layout_weight="1"
                 android:text="@string/button_delete_product" />
         </LinearLayout>
-        
+
     </LinearLayout>
 
 

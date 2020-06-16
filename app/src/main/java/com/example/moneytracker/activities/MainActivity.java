@@ -3,6 +3,7 @@ package com.example.moneytracker.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
@@ -81,6 +82,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.menu_statistics_for_the_year:
                 intent = new Intent("android.intent.action.STATISTICS_FOR_THE_YEAR");
                 startActivity(intent);
+                break;
+            case R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
                 break;
             default:
                 break;
