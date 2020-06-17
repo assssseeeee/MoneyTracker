@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ import android.widget.Toast;
 import com.example.moneytracker.R;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
-public class ProductChangeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class ProductChangeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener {
     private static final int EDIT_PRODUCT_LOADER = 111;
     EditText changeProductNameEditText;
     EditText changeProductPriceEditText;
@@ -47,6 +48,9 @@ public class ProductChangeActivity extends AppCompatActivity implements LoaderMa
         changeProductPriceEditText = findViewById(R.id.changeProductPriceEditText);
         saveProductButton = findViewById(R.id.saveProductButton);
         deleteProductButton = findViewById(R.id.deleteProductButton);
+
+        saveProductButton.setOnClickListener(this);
+        deleteProductButton.setOnClickListener(this);
     }
 
     @NonNull
@@ -110,6 +114,7 @@ public class ProductChangeActivity extends AppCompatActivity implements LoaderMa
             } else {
                 Toast.makeText(this, R.string.toast_product_updated,
                         Toast.LENGTH_LONG).show();
+                finish();
             }
         }
     }
@@ -125,6 +130,18 @@ public class ProductChangeActivity extends AppCompatActivity implements LoaderMa
                         Toast.LENGTH_SHORT).show();
             }
             finish();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.saveProductButton:
+                saveProduct();
+                break;
+            case R.id.deleteProductButton:
+                deleteProduct();
+                break;
         }
     }
 }

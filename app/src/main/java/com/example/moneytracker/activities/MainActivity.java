@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,10 +33,12 @@ import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int PRODUCT_LOADER = 123;
+    private static final int EDIT_PRODUCT_LOADER = 111;
     EditText editTextProduct, editTextPrice;
     Button buttonAddProduct;
     ListView listViewProduct;
     ExpensesCursorAdapter expensesCursorAdapter;
+    Uri currentProductUri;
 
 
     @Override
@@ -60,6 +63,15 @@ public class MainActivity extends AppCompatActivity
             }
         });
         getSupportLoaderManager().initLoader(PRODUCT_LOADER, null, this);
+
+        buttonAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveProduct();
+                editTextProduct.setText("");
+                editTextPrice.setText("");
+            }
+        });
     }
 
     @NonNull
@@ -115,6 +127,45 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveProduct() {
+        String productName = editTextProduct.getText().toString().trim();
+        String productPrice = editTextPrice.getText().toString().trim();
+
+        if (TextUtils.isEmpty(productName)) {
+            Toast.makeText(this, R.string.toast_enter_product_name, Toast.LENGTH_SHORT).show();
+            return;
+        } else if (TextUtils.isEmpty(productPrice)) {
+            Toast.makeText(this, R.string.toast_enter_product_price, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(AddingExpenses.COLUMN_PRODUCT_NAME, productName);
+        contentValues.put(AddingExpenses.COLUMN_PRODUCT_PRICE, productPrice);
+
+        if (currentProductUri == null) {
+            ContentResolver contentResolver = getContentResolver();
+            Uri uri = contentResolver.insert(AddingExpenses.CONTENT_URI, contentValues);
+
+            if (uri == null) {
+                Toast.makeText(this, "Insertion of data in the table failed for \" + uri",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, R.string.toast_product_saved,
+                        Toast.LENGTH_LONG).show();
+            }
+        } else {
+            int rowsChanget = getContentResolver().update(currentProductUri, contentValues, null, null);
+            if (rowsChanget == 0) {
+                Toast.makeText(this, "Saving of data in the table failed for \" + uri",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, R.string.toast_product_updated,
+                        Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
 
