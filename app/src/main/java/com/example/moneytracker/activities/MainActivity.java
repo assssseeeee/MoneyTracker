@@ -56,10 +56,8 @@ public class MainActivity extends AppCompatActivity
         listViewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, ProductChangeActivity.class);
                 Uri currentProductUri = ContentUris.withAppendedId(AddingExpenses.CONTENT_URI, id);
-                intent.setData(currentProductUri);
-                startActivity(intent);
+               
             }
         });
         getSupportLoaderManager().initLoader(PRODUCT_LOADER, null, this);
@@ -104,6 +102,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if(currentProductUri == null){
+            MenuItem menuItem = menu.findItem(R.id.menu_delete_product);
+            menuItem.setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Intent intent;
@@ -112,13 +120,12 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent("android.intent.action.PURCHASE_HISTORY");
                 startActivity(intent);
                 break;
-            case R.id.menu_statistics_for_the_month:
-                intent = new Intent("android.intent.action.STATISTICS_FOR_THE_MOUTH");
+            case R.id.menu_statistics:
+                intent = new Intent("android.intent.action.STATISTICS");
                 startActivity(intent);
                 break;
-            case R.id.menu_statistics_for_the_year:
-                intent = new Intent("android.intent.action.STATISTICS_FOR_THE_YEAR");
-                startActivity(intent);
+            case R.id.menu_delete_product:
+                deleteProduct();
                 break;
             case R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
@@ -165,6 +172,21 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, R.string.toast_product_updated,
                         Toast.LENGTH_LONG).show();
             }
+        }
+        expensesCursorAdapter.notifyDataSetChanged();
+    }
+
+    private void deleteProduct() {
+        if (currentProductUri != null) {
+            int rowsDeleted = getContentResolver().delete(currentProductUri, null, null);
+            if (rowsDeleted == 0) {
+                Toast.makeText(this, R.string.toast_product_delete_failed,
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, R.string.toast_product_delete_succsess,
+                        Toast.LENGTH_SHORT).show();
+            }
+            expensesCursorAdapter.notifyDataSetChanged();
         }
     }
 }

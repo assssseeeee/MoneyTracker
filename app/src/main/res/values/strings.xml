@@ -3,9 +3,8 @@
     <string name="enter_product_name">название товара</string>
     <string name="coast">цена</string>
     <string name="button_add">+</string>
-    <string name="menu_purchase_history">История покупок</string>
-    <string name="menu_statistics_for_the_month">Статистика за месяц</string>
-    <string name="menu_statistics_for_the_year">Статистика за год</string>
+    <string name="menu_purchase_history">история покупок</string>
+    <string name="menu_statistics_for_the_month">cтатистика</string>
     <string name="hint_product_name">Введите название</string>
     <string name="hint_product_price">Введите цену</string>
 
