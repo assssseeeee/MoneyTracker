@@ -57,7 +57,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Uri currentProductUri = ContentUris.withAppendedId(AddingExpenses.CONTENT_URI, id);
-               
+
+                
+
+
             }
         });
         getSupportLoaderManager().initLoader(PRODUCT_LOADER, null, this);
