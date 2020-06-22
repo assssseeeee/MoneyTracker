@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity
         listViewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Uri currentProductUri = ContentUris.withAppendedId(AddingExpenses.CONTENT_URI, id);
+                expensesCursorAdapter.
+
 
             }
         });
