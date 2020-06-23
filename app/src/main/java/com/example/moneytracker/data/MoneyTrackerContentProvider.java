@@ -158,6 +158,9 @@ public class MoneyTrackerContentProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Can't update nicorrect URI " + uri);
         }
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
         return rowsUpdated;
     }
 }

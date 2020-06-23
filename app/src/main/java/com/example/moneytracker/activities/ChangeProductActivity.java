@@ -14,7 +14,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,6 +79,7 @@ public class ChangeProductActivity extends AppCompatActivity
             } else {
                 Toast.makeText(this, R.string.toast_product_saved,
                         Toast.LENGTH_LONG).show();
+                finish();
             }
         } else {
             int rowsChanged = getContentResolver().update(currentProductUri, contentValues, null, null);
@@ -89,8 +89,8 @@ public class ChangeProductActivity extends AppCompatActivity
             } else {
                 Toast.makeText(this, R.string.toast_product_updated,
                         Toast.LENGTH_LONG).show();
+                finish();
             }
-
         }
     }
 
@@ -127,7 +127,6 @@ public class ChangeProductActivity extends AppCompatActivity
                 AddingExpenses.COLUMN_PRODUCT_NAME,
                 AddingExpenses.COLUMN_PRODUCT_PRICE
         };
-        Log.d("XXX", "loader change create");
         return new CursorLoader(this, currentProductUri,
                 projection, null, null, null);
     }
@@ -142,11 +141,9 @@ public class ChangeProductActivity extends AppCompatActivity
             editTextChangeProduct.setText(productName);
             editTextChangePrice.setText(productPrice);
         }
-        Log.d("XXX", "loader change finished");
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-        Log.d("XXX", "loader change reset");
     }
 }

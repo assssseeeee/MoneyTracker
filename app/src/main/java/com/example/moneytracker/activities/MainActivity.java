@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("XXX", "onCreate");
         setContentView(R.layout.activity_main);
 
         editTextProduct = findViewById(R.id.editTextProduct);
@@ -74,12 +73,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d("XXX", "onRestart");
-    }
-
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
@@ -90,19 +83,16 @@ public class MainActivity extends AppCompatActivity
         };
 
         CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, null, null, null);
-        Log.d("XXX", "loader main create");
         return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        Log.d("XXX", "loader main finished");
         expensesCursorAdapter.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-        Log.d("XXX", "loader main reset");
         expensesCursorAdapter.swapCursor(null);
     }
 
