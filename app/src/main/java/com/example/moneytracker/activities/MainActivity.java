@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,17 +34,16 @@ import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int PRODUCT_LOADER = 123;
-    private static final int EDIT_PRODUCT_LOADER = 111;
-    EditText editTextProduct, editTextPrice;
-    Button buttonAddProduct;
+    private EditText editTextProduct, editTextPrice;
+    private Button buttonAddProduct;
     ListView listViewProduct;
     ExpensesCursorAdapter expensesCursorAdapter;
     Uri currentProductUri;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("XXX", "onCreate");
         setContentView(R.layout.activity_main);
 
         editTextProduct = findViewById(R.id.editTextProduct);
@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("XXX", "onRestart");
+    }
+
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
@@ -84,32 +90,25 @@ public class MainActivity extends AppCompatActivity
         };
 
         CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, null, null, null);
+        Log.d("XXX", "loader main create");
         return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        Log.d("XXX", "loader main finished");
         expensesCursorAdapter.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        Log.d("XXX", "loader main reset");
         expensesCursorAdapter.swapCursor(null);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        if(currentProductUri == null){
-            MenuItem menuItem = menu.findItem(R.id.menu_delete_product);
-            menuItem.setVisible(false);
-        }
         return true;
     }
 
@@ -125,9 +124,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.menu_statistics:
                 intent = new Intent("android.intent.action.STATISTICS");
                 startActivity(intent);
-                break;
-            case R.id.menu_delete_product:
-                deleteProduct();
                 break;
             case R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
@@ -149,7 +145,6 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, R.string.toast_enter_product_price, Toast.LENGTH_SHORT).show();
             return;
         }
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(AddingExpenses.COLUMN_PRODUCT_NAME, productName);
         contentValues.put(AddingExpenses.COLUMN_PRODUCT_PRICE, productPrice);
@@ -174,21 +169,6 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, R.string.toast_product_updated,
                         Toast.LENGTH_LONG).show();
             }
-        }
-        expensesCursorAdapter.notifyDataSetChanged();
-    }
-
-    private void deleteProduct() {
-        if (currentProductUri != null) {
-            int rowsDeleted = getContentResolver().delete(currentProductUri, null, null);
-            if (rowsDeleted == 0) {
-                Toast.makeText(this, R.string.toast_product_delete_failed,
-                        Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, R.string.toast_product_delete_succsess,
-                        Toast.LENGTH_SHORT).show();
-            }
-            expensesCursorAdapter.notifyDataSetChanged();
         }
     }
 }

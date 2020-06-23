@@ -16,7 +16,7 @@
         android:id="@+id/editTextChangePrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_product_name"
+        android:hint="@string/hint_product_price"
         android:layout_marginBottom="@dimen/padding_small"/>
 
     <LinearLayout
@@ -25,11 +25,22 @@
         android:orientation="horizontal">
 
         <Button
+            android:layout_marginStart="@dimen/padding_small"
+            android:layout_marginEnd="@dimen/padding_small"
             android:id="@+id/buttonSaveChange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/button_save_product" />
+
+        <Button
+            android:layout_marginStart="@dimen/padding_small"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:id="@+id/buttonDeleteChange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_delete_product"/>
     </LinearLayout>
 
 
