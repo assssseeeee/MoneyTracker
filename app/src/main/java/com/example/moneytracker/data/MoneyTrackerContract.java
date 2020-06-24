@@ -22,6 +22,8 @@ public final class MoneyTrackerContract {
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_PRODUCT_NAME = "productName";
         public static final String COLUMN_PRODUCT_PRICE = "productPrice";
+        public static final String COLUMN_PRODUCT_CATEGORY = "productCategory";
+        public static final String COLUMN_DATE_REGISTRED = "dateRegistred";
 
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_EXPENSES);

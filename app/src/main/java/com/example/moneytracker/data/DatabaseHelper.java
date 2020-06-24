@@ -18,7 +18,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String CREATE_EXPENSES_TABLE = "CREATE TABLE " + AddingExpenses.TABLE_NAME
                 + "(" + AddingExpenses._ID + " INTEGER PRIMARY KEY,"
                 + AddingExpenses.COLUMN_PRODUCT_NAME + " TEXT,"
-                + AddingExpenses.COLUMN_PRODUCT_PRICE + " TEXT" + ")";
+                + AddingExpenses.COLUMN_PRODUCT_PRICE + " TEXT,"
+                + AddingExpenses.COLUMN_PRODUCT_CATEGORY + " INTEGER,"
+                + AddingExpenses.COLUMN_DATE_REGISTRED + " INTEGER"
+                + ")";
         db.execSQL(CREATE_EXPENSES_TABLE);
     }
 
