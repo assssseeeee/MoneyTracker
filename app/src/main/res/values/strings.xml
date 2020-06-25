@@ -3,8 +3,8 @@
     <string name="enter_product_name">название товара</string>
     <string name="coast">цена</string>
     <string name="button_add">+</string>
-    <string name="menu_purchase_history">история покупок</string>
-    <string name="menu_statistics_for_the_month">cтатистика</string>
+    <string name="menu_purchase_history">История покупок</string>
+    <string name="menu_statistics_for_the_month">Статистика</string>
     <string name="hint_product_name">Введите название</string>
     <string name="hint_product_price">Введите цену</string>
 
@@ -17,8 +17,8 @@
     <string name="toast_product_delete_succsess">Запись удалена</string>
 
     <!--Buttons-->
-    <string name="button_save_product">сохранить</string>
-    <string name="button_delete_product">удалить</string>
+    <string name="button_save_product">Сохранить</string>
+    <string name="button_delete_product">Удалить</string>
 
     <!--Titles-->
     <string name="title_add_product">Добавьте товар</string>
