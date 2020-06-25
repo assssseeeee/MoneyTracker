@@ -10,7 +10,8 @@ public final class MoneyTrackerContract {
     }
 
     public static final int DATA_BASE_VERSION = 1;
-    public static final String DATA_BASE_NAME = "moneydata1";
+    public static final String DATA_BASE_NAME = "moneydata.db";
+    public static String DATA_BASE_PATH;
     public static final String SHEME = "content://";
     public static final String AUTHORITY = "com.example.moneytracker";
     public static final String PATH_EXPENSES = "expenses";

@@ -3,18 +3,26 @@ package com.example.moneytracker.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
+    Context myContext;
 
     public DatabaseHelper(Context context) {
         super(context, MoneyTrackerContract.DATA_BASE_NAME, null, MoneyTrackerContract.DATA_BASE_VERSION);
+        this.myContext = context;
+        MoneyTrackerContract.DATA_BASE_PATH = context.getFilesDir().getPath() + MoneyTrackerContract.DATA_BASE_NAME;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         String CREATE_EXPENSES_TABLE = "CREATE TABLE " + AddingExpenses.TABLE_NAME
                 + "(" + AddingExpenses._ID + " INTEGER PRIMARY KEY,"
                 + AddingExpenses.COLUMN_PRODUCT_NAME + " TEXT,"
@@ -29,6 +37,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + AddingExpenses.TABLE_NAME);
         onCreate(db);
+    }
 
+    public void loadDatabaseFromFile(){
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try{
+            File file = new File(MoneyTrackerContract.DATA_BASE_PATH);
+            if()
+        }catch (IOException ex){
+            Log.d("DatabaseHelper", ex.getMessage());
+        }
     }
 }

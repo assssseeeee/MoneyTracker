@@ -8,6 +8,7 @@
     <TextView
         android:id="@+id/itemPriceTextView"
         tools:text="50"
+        android:textSize="@dimen/big_text"
         android:padding="@dimen/padding"
         android:background="@color/red"
         android:textColor="@android:color/white"
@@ -18,6 +19,7 @@
     <TextView
         android:id="@+id/itemNameTextView"
         tools:text="food"
+        android:textSize="@dimen/big_text"
         android:gravity="center_vertical"
         android:textColor="@android:color/white"
         android:paddingStart="@dimen/padding_small"
