@@ -115,6 +115,10 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent("android.intent.action.STATISTICS");
                 startActivity(intent);
                 break;
+            case R.id.menu_settings:
+                intent = new Intent("android.intent.action.SETTINGS");
+                startActivity(intent);
+                break;
             case R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 break;

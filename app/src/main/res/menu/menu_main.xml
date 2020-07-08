@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/menu_purchase_history"
         android:orderInCategory="1"
-        android:title="@string/menu_purchase_history" />
+        android:title="@string/label_purchase_history" />
     <item
         android:id="@+id/menu_statistics"
         android:orderInCategory="2"
-        android:title="@string/menu_statistics_for_the_month" />
-
+        android:title="@string/label_statistics" />
+    <item
+        android:id="@+id/menu_settings"
+        android:orderInCategory="3"
+        android:title="@string/label_settings" />
 </menu>
