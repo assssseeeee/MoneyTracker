@@ -33,4 +33,7 @@
     <string name="app_name">Мои покупки</string>
     <string name="label_change_product">Редактирование товара</string>
 
+    <!--SettinsActivity-->
+    <string name="edit_product_category">Редактировать категории денежных затрат</string>
+
 </resources>
