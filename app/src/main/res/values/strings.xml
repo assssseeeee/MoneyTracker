@@ -33,6 +33,8 @@
     <string name="label_statistics">Статистика</string>
     <string name="label_settings">Настройки</string>
     <string name="app_name">Мои покупки</string>
+    <string name="label_expense_sheet">Лист расходов</string>
+    <string name="label_income_sheet">Лист доходов</string>
     <string name="label_change_product">Редактирование товара</string>
 
     <!--SettinsActivity-->

@@ -10,15 +10,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activities.SettingsActivity"
-            android:label="@string/label_settings">
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.SETTINGS"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.ChangeProductActivity"
+        <activity
+            android:name=".activities.ExpenseSheetActivity"
+            android:label="@string/label_expense_sheet">
+            <intent-filter>
+                <action android:name="android.intent.action.EXPENSE_SHEET" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/label_settings">
+            <intent-filter>
+                <action android:name="android.intent.action.SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.ChangeProductActivity"
             android:label="@string/label_change_product">
             <intent-filter>
                 <action android:name="android.intent.action.CHANGE_PRODUCT" />
@@ -45,11 +66,11 @@
         </activity>
 
         <activity
-            android:name=".activities.MainActivity"
-            android:label="@string/app_name">
+            android:name=".activities.IncomeSheetActivity"
+            android:label="@string/label_income_sheet">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.INCOME_SHEET" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
