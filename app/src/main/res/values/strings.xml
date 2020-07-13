@@ -1,6 +1,8 @@
 <resources>
-
+    <!--MainActivity-->
     <string name="enter_product_name">название товара</string>
+    <string name="income_table">лист доходов</string>
+    <string name="expense_table">лист расходов</string>
     <string name="coast">цена</string>
     <string name="button_add">+</string>
     <string name="hint_product_name">Введите название</string>

@@ -17,22 +17,19 @@ public final class MoneyTrackerContract {
     public static final String PATH_EXPENSES = "expenses";
     public static final Uri BASE_CONTENT_URI = Uri.parse(SHEME + AUTHORITY);
 
-    public static final class AddingExpenses implements BaseColumns {
+    public static final class AddingExpenses {
         public static final String TABLE_NAME = "expenses";
 
-        public static final String _ID = BaseColumns._ID;
+        public static final String _ID = "_id";
         public static final String COLUMN_PRODUCT_NAME = "productName";
         public static final String COLUMN_PRODUCT_PRICE = "productPrice";
         public static final String COLUMN_PRODUCT_CATEGORY = "productCategory";
         public static final String COLUMN_DATE_REGISTRED = "dateRegistred";
-
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_EXPENSES);
         public static final String CONTENT_MULTIPLE_ITEMS = ContentResolver.CURSOR_DIR_BASE_TYPE
                 + "/" + AUTHORITY + "/" + PATH_EXPENSES;
         public static final String CONTENT_SINGLE_ITEM = ContentResolver.CURSOR_ITEM_BASE_TYPE
                 + "/" + AUTHORITY + "/" + PATH_EXPENSES;
-
-
     }
 }
