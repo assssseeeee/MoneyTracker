@@ -1,5 +1,5 @@
 <resources>
-    <!--MainActivity-->
+    <!--IncomeListActivity-->
     <string name="enter_product_name">название товара</string>
     <string name="income_table">лист доходов</string>
     <string name="expense_table">лист расходов</string>
@@ -7,6 +7,10 @@
     <string name="button_add">+</string>
     <string name="hint_product_name">Введите название</string>
     <string name="hint_product_price">Введите цену</string>
+
+    <!--MainActivity-->
+    <string name="button_income_list">+</string>
+    <string name="button_expense_list">-</string>
 
     <!--Toasts-->
     <string name="toast_enter_product_name">Введите название товара</string>
@@ -33,8 +37,8 @@
     <string name="label_statistics">Статистика</string>
     <string name="label_settings">Настройки</string>
     <string name="app_name">Мои покупки</string>
-    <string name="label_expense_sheet">Лист расходов</string>
-    <string name="label_income_sheet">Лист доходов</string>
+    <string name="label_expense_list">Лист расходов</string>
+    <string name="label_income_list">Лист доходов</string>
     <string name="label_change_product">Редактирование товара</string>
 
     <!--SettinsActivity-->

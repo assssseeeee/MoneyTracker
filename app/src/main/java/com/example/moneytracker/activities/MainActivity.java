@@ -3,6 +3,7 @@ package com.example.moneytracker.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,15 +27,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent intent;
+        Intent intent = new Intent(this, IncomeListActivity.class);
         switch (v.getId()) {
             case R.id.buttonIncomeList:
-                intent = new Intent(this, IncomeSheetActivity.class);
-                startActivity(intent);
+
+
+
+
+
                 break;
             case R.id.buttonExpenseList:
-                intent = new Intent(this, ExpenseSheetActivity.class);
-                startActivity(intent);
+
                 break;
             default:
                 break;

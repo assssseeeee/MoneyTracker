@@ -15,17 +15,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".activities.ExpenseSheetActivity"
-            android:label="@string/label_expense_sheet">
-            <intent-filter>
-                <action android:name="android.intent.action.EXPENSE_SHEET" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -66,10 +56,10 @@
         </activity>
 
         <activity
-            android:name=".activities.IncomeSheetActivity"
-            android:label="@string/label_income_sheet">
+            android:name=".activities.IncomeListActivity"
+            android:label="@string/label_income_list">
             <intent-filter>
-                <action android:name="android.intent.action.INCOME_SHEET" />
+                <action android:name="android.intent.action.INCOME_LIST" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

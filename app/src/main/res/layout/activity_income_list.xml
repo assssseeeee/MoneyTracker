@@ -7,7 +7,7 @@
     android:background="@drawable/bg"
     android:orientation="vertical"
     android:padding="@dimen/padding_small"
-    tools:context=".activities.IncomeSheetActivity">
+    tools:context=".activities.IncomeListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

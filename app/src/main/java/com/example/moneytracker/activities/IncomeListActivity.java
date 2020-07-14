@@ -29,7 +29,7 @@ import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
-public class IncomeSheetActivity extends AppCompatActivity
+public class IncomeListActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int PRODUCT_LOADER = 123;
     private EditText editTextProduct, editTextPrice;
@@ -41,7 +41,7 @@ public class IncomeSheetActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_income_sheet);
+        setContentView(R.layout.activity_income_list);
 
         editTextProduct = findViewById(R.id.editTextProduct);
         editTextPrice = findViewById(R.id.editTextPrice);
@@ -53,7 +53,7 @@ public class IncomeSheetActivity extends AppCompatActivity
         listViewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(IncomeSheetActivity.this, ChangeProductActivity.class);
+                Intent intent = new Intent(IncomeListActivity.this, ChangeProductActivity.class);
                 Uri currentProductUri = ContentUris.withAppendedId(AddingExpenses.CONTENT_URI, id);
                 intent.setData(currentProductUri);
                 startActivity(intent);
