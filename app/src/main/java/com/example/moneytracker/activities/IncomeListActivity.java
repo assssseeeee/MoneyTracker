@@ -37,11 +37,27 @@ public class IncomeListActivity extends AppCompatActivity
     ListView listViewProduct;
     ExpensesCursorAdapter expensesCursorAdapter;
     Uri currentProductUri;
+    private static String coefficient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income_list);
+
+        Bundle arguments = getIntent().getExtras();
+        if (arguments != null) {
+            boolean state = arguments.getBoolean("state");
+            if (state == true) {
+                setTitle(R.string.label_income_list);
+                coefficient = "";
+            } else {
+                setTitle(R.string.label_expense_list);
+                coefficient = "-";
+            }
+        } else {
+            finish();
+        }
 
         editTextProduct = findViewById(R.id.editTextProduct);
         editTextPrice = findViewById(R.id.editTextPrice);
@@ -67,7 +83,6 @@ public class IncomeListActivity extends AppCompatActivity
                 saveProduct();
                 editTextPrice.setText("");
                 editTextProduct.setText("");
-                editTextProduct.setFocusable(true);
             }
         });
     }
@@ -80,6 +95,8 @@ public class IncomeListActivity extends AppCompatActivity
                 AddingExpenses.COLUMN_PRODUCT_NAME,
                 AddingExpenses.COLUMN_PRODUCT_PRICE,
         };
+        String SearchString = "-";
+
 
         CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, null, null, null);
         return cursorLoader;
@@ -95,41 +112,9 @@ public class IncomeListActivity extends AppCompatActivity
         expensesCursorAdapter.swapCursor(null);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        Intent intent;
-        switch (id) {
-            case R.id.menu_purchase_history:
-                intent = new Intent("android.intent.action.PURCHASE_HISTORY");
-                startActivity(intent);
-                break;
-            case R.id.menu_statistics:
-                intent = new Intent("android.intent.action.STATISTICS");
-                startActivity(intent);
-                break;
-            case R.id.menu_settings:
-                intent = new Intent("android.intent.action.SETTINGS");
-                startActivity(intent);
-                break;
-            case R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void saveProduct() {
         String productName = editTextProduct.getText().toString().trim();
-        String productPrice = editTextPrice.getText().toString().trim();
+        String productPrice = coefficient + editTextPrice.getText().toString().trim();
 
         if (TextUtils.isEmpty(productName)) {
             Toast.makeText(this, R.string.toast_enter_product_name, Toast.LENGTH_SHORT).show();

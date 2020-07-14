@@ -37,13 +37,7 @@ public class ChangeProductActivity extends AppCompatActivity
         Intent intent = getIntent();
         currentProductUri = intent.getData();
 
-        if (currentProductUri == null) {
-            setTitle("Добавить запись");
-            invalidateOptionsMenu();
-        } else {
-            setTitle("Изменить запись");
-            getSupportLoaderManager().initLoader(PRODUCT_LOADER, null, this);
-        }
+        getSupportLoaderManager().initLoader(PRODUCT_LOADER, null, this);
 
         editTextChangeProduct = findViewById(R.id.editTextChangeProduct);
         editTextChangePrice = findViewById(R.id.editTextChangePrice);
