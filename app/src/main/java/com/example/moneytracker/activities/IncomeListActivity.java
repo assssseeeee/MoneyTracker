@@ -65,8 +65,9 @@ public class IncomeListActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 saveProduct();
-                editTextProduct.setText("");
                 editTextPrice.setText("");
+                editTextProduct.setText("");
+                editTextProduct.setFocusable(true);
             }
         });
     }
