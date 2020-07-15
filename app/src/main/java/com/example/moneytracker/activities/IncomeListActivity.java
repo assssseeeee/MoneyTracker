@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,8 +54,9 @@ public class IncomeListActivity extends AppCompatActivity
         productCategory = 1;
 
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(" " + "yyyy.MM.dd" + " hh:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         dateNow = dateFormat.format(date);
+        Log.d("dateFormat", dateNow);
 
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
@@ -109,7 +111,14 @@ public class IncomeListActivity extends AppCompatActivity
                 AddingExpenses.COLUMN_PRODUCT_CATEGORY,
                 AddingExpenses.COLUMN_DATE_REGISTERED
         };
-        String search = "+";
+
+        String search;
+        if(state == true){
+            search = "+";
+        }else{
+            search = "-";
+        }
+
         String selection = null;
         String[] selectionArgs = {""};
         if (TextUtils.isEmpty(search)) {
