@@ -29,6 +29,9 @@ import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class IncomeListActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int PRODUCT_LOADER = 123;
@@ -37,23 +40,31 @@ public class IncomeListActivity extends AppCompatActivity
     ListView listViewProduct;
     ExpensesCursorAdapter expensesCursorAdapter;
     Uri currentProductUri;
-    private static String coefficient;
-
-
+    private static String priceSign;
+    private boolean state;
+    private int productCategory;
+    private String dateNow;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income_list);
 
+        productCategory = 1;
+
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(" " + "yyyy.MM.dd" + " hh:mm:ss");
+        dateNow = dateFormat.format(date);
+
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
-            boolean state = arguments.getBoolean("state");
+            state = arguments.getBoolean("state");
             if (state == true) {
                 setTitle(R.string.label_income_list);
-                coefficient = "";
+                priceSign = "+";
             } else {
                 setTitle(R.string.label_expense_list);
-                coefficient = "-";
+                priceSign = "-";
             }
         } else {
             finish();
@@ -94,11 +105,22 @@ public class IncomeListActivity extends AppCompatActivity
                 AddingExpenses._ID,
                 AddingExpenses.COLUMN_PRODUCT_NAME,
                 AddingExpenses.COLUMN_PRODUCT_PRICE,
+                AddingExpenses.COLUMN_PRICE_SIGN,
+                AddingExpenses.COLUMN_PRODUCT_CATEGORY,
+                AddingExpenses.COLUMN_DATE_REGISTERED
         };
-        String SearchString = "-";
+        String search = "+";
+        String selection = null;
+        String[] selectionArgs = {""};
+        if (TextUtils.isEmpty(search)) {
+            selection = null;
+            selectionArgs[0] = "";
+        } else {
+            selection = AddingExpenses.COLUMN_PRICE_SIGN + " = ?";
+            selectionArgs[0] = search;
+        }
 
-
-        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, null, null, null);
+        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, selectionArgs, null);
         return cursorLoader;
     }
 
@@ -114,7 +136,7 @@ public class IncomeListActivity extends AppCompatActivity
 
     private void saveProduct() {
         String productName = editTextProduct.getText().toString().trim();
-        String productPrice = coefficient + editTextPrice.getText().toString().trim();
+        String productPrice = editTextPrice.getText().toString().trim();
 
         if (TextUtils.isEmpty(productName)) {
             Toast.makeText(this, R.string.toast_enter_product_name, Toast.LENGTH_SHORT).show();
@@ -126,6 +148,9 @@ public class IncomeListActivity extends AppCompatActivity
         ContentValues contentValues = new ContentValues();
         contentValues.put(AddingExpenses.COLUMN_PRODUCT_NAME, productName);
         contentValues.put(AddingExpenses.COLUMN_PRODUCT_PRICE, productPrice);
+        contentValues.put(AddingExpenses.COLUMN_PRICE_SIGN, priceSign);
+        contentValues.put(AddingExpenses.COLUMN_PRODUCT_CATEGORY, productCategory);
+        contentValues.put(AddingExpenses.COLUMN_DATE_REGISTERED, dateNow);
 
         if (currentProductUri == null) {
             ContentResolver contentResolver = getContentResolver();

@@ -23,6 +23,7 @@ public final class MoneyTrackerContract {
         public static final String _ID = "_id";
         public static final String COLUMN_PRODUCT_NAME = "productName";
         public static final String COLUMN_PRODUCT_PRICE = "productPrice";
+        public static final String COLUMN_PRICE_SIGN = "priceSign";
         public static final String COLUMN_PRODUCT_CATEGORY = "productCategory";
         public static final String COLUMN_DATE_REGISTERED = "dateRegistered";
 

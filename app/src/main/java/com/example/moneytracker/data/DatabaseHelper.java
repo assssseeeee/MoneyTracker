@@ -27,8 +27,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "(" + AddingExpenses._ID + " INTEGER PRIMARY KEY,"
                 + AddingExpenses.COLUMN_PRODUCT_NAME + " TEXT,"
                 + AddingExpenses.COLUMN_PRODUCT_PRICE + " TEXT,"
+                + AddingExpenses.COLUMN_PRICE_SIGN + " TEXT,"
                 + AddingExpenses.COLUMN_PRODUCT_CATEGORY + " INTEGER,"
-                + AddingExpenses.COLUMN_DATE_REGISTERED + " INTEGER"
+                + AddingExpenses.COLUMN_DATE_REGISTERED + " TEXT"
                 + ")";
         db.execSQL(CREATE_EXPENSES_TABLE);
     }
