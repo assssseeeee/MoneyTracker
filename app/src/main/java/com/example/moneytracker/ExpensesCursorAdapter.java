@@ -27,6 +27,15 @@ public class ExpensesCursorAdapter extends CursorAdapter {
 
         String itemName = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_NAME));
         String itemPrice = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_PRICE));
+        String itemPriceSign = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRICE_SIGN));
+
+        if(itemPriceSign.equals("-")){
+            itemNameTextView.setBackgroundColor(itemNameTextView.getResources().getColor(R.color.lightRed));
+            itemPriceTextView.setBackgroundColor(itemNameTextView.getResources().getColor(R.color.moderatelyRed));
+        }else{
+            itemNameTextView.setBackgroundColor(itemNameTextView.getResources().getColor(R.color.lightGreen));
+            itemPriceTextView.setBackgroundColor(itemNameTextView.getResources().getColor(R.color.moderatelyGreen));
+        }
 
         itemNameTextView.setText(itemName);
         itemPriceTextView.setText(itemPrice);

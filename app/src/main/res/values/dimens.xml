@@ -2,7 +2,7 @@
 <resources>
     <dimen name="padding">20dp</dimen>
     <dimen name="padding_small">10dp</dimen>
-    <dimen name="big_text">18sp</dimen>
-    <dimen name="normal_text">15sp</dimen>
+    <dimen name="big_text">15sp</dimen>
+    <dimen name="normal_text">13sp</dimen>
     <dimen name="small_text">10sp</dimen>
 </resources>

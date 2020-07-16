@@ -6,4 +6,8 @@
     <color name="orange">#FF9800</color>
     <color name="red">#F44336</color>
     <color name="white">#FFFFFF</color>
+    <color name="lightGreen">#8fe964</color>
+    <color name="moderatelyGreen">#73d572</color>
+    <color name="lightRed">#ff6666</color>
+    <color name="moderatelyRed">#c12231</color>
 </resources>

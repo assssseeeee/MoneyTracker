@@ -39,13 +39,13 @@ public class IncomeListActivity extends AppCompatActivity
     private EditText editTextProduct, editTextPrice;
     private Button buttonAddProduct;
     ListView listViewProduct;
-    ExpensesCursorAdapter expensesCursorAdapter;
+    private ExpensesCursorAdapter expensesCursorAdapter;
     Uri currentProductUri;
     private static String priceSign;
+    private String dateNow;
     private boolean state;
     private int productCategory;
-    private String dateNow;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +56,6 @@ public class IncomeListActivity extends AppCompatActivity
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         dateNow = dateFormat.format(date);
-        Log.d("dateFormat", dateNow);
 
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
@@ -112,24 +111,15 @@ public class IncomeListActivity extends AppCompatActivity
                 AddingExpenses.COLUMN_DATE_REGISTERED
         };
 
-        String search;
-        if(state == true){
-            search = "+";
-        }else{
-            search = "-";
-        }
-
-        String selection = null;
-        String[] selectionArgs = {""};
-        if (TextUtils.isEmpty(search)) {
+        String selection;
+        if (TextUtils.isEmpty(priceSign) & TextUtils.isEmpty(dateNow)) {
             selection = null;
-            selectionArgs[0] = "";
         } else {
-            selection = AddingExpenses.COLUMN_PRICE_SIGN + " = ?";
-            selectionArgs[0] = search;
+            selection = AddingExpenses.COLUMN_PRICE_SIGN + " = '" + priceSign + "' and "
+                    + AddingExpenses.COLUMN_DATE_REGISTERED + " = '" + dateNow + "'";
         }
 
-        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, selectionArgs, null);
+        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, null, null);
         return cursorLoader;
     }
 

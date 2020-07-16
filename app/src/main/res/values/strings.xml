@@ -44,4 +44,11 @@
     <!--SettinsActivity-->
     <string name="edit_product_category">Редактировать категории денежных затрат</string>
 
+    <!--menu_history-->
+    <string name="menu_history_all">за всё время</string>
+    <string name="menu_history_for_day">за день</string>
+    <string name="menu_history_for_week">за неделю</string>
+    <string name="menu_history_for_month">за месяц</string>
+    <string name="menu_history_for_year">за год</string>
+
 </resources>
