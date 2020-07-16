@@ -4,22 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_margin="@dimen/padding_small"
     tools:context=".PurchaseHistory">
 
-
-    <CalendarView
-        android:id="@+id/calendarView"
+    <Button
+        android:id="@+id/buttonChooseDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foregroundGravity="center_vertical"
-        android:onClick="onClick"
-        tools:ignore="MissingConstraints" />
+        android:text="@string/button_choose_date"/>
+
 
     <ListView
         android:id="@+id/productHistoryListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_small"
         android:divider="@android:color/transparent"
         tools:listitem="@layout/expenses_item"/>
 

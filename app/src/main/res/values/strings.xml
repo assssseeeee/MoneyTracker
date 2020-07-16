@@ -23,6 +23,9 @@
     <!--Buttons-->
     <string name="button_save_product">Сохранить</string>
     <string name="button_delete_product">Удалить</string>
+    <string name="button_choose_date">Выбрать дату</string>
+    <string name="button_alert_dialog_ok">Выбрать</string>
+    <string name="button_alert_dialog_cancel">Отмена</string>
 
     <!--Titles-->
     <string name="title_add_product">Добавьте товар</string>

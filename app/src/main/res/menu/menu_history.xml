@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menu_history_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_history_for_day"
+            android:orderInCategory="1"
+            android:title="@string/menu_history_for_day" />
+        <item
+            android:id="@+id/menu_history_for_week"
+            android:orderInCategory="2"
+            android:title="@string/menu_history_for_week" />
+        <item
+            android:id="@+id/menu_history_for_month"
+            android:orderInCategory="3"
+            android:title="@string/menu_history_for_month" />
+        <item
+            android:id="@+id/menu_menu_history_for_year"
+            android:orderInCategory="4"
+            android:title="@string/menu_history_for_year" />
+        <item
+            android:id="@+id/menu_menu_history_all"
+            android:orderInCategory="5"
+            android:title="@string/menu_history_all" />
+    </group>
 
-    <item
-        android:id="@+id/menu_history_for_day"
-        android:checkable="true"
-        android:orderInCategory="1"
-        android:title="@string/menu_history_for_day" />
-    <item
-        android:id="@+id/menu_history_for_week"
-        android:orderInCategory="2"
-        android:title="@string/menu_history_for_week" />
-    <item
-        android:id="@+id/menu_history_for_month"
-        android:orderInCategory="3"
-        android:title="@string/menu_history_for_month" />
-    <item
-        android:id="@+id/menu_menu_history_for_year"
-        android:orderInCategory="4"
-        android:title="@string/menu_history_for_year" />
-    <item
-        android:id="@+id/menu_menu_history_all"
-        android:orderInCategory="5"
-        android:title="@string/menu_history_all" />
 </menu>
