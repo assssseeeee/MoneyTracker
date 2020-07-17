@@ -31,12 +31,11 @@ import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PurchaseHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener, DatePickerDialogFragments.DatePickerDialogListener{
+public class PurchaseHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener, DatePickerDialogFragments.DataPickerDialogListener{
     private ExpensesCursorAdapter expensesCursorAdapter;
     private static String selectedDate;
     private ListView productHistoryListView;
     private Button buttonChooseDate;
-    private CalendarView calendarView;
     private static final int PRODUCT_LOADER_HISTORY = 333;
 
     @Override
@@ -65,6 +64,9 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
             }
         });
         getSupportLoaderManager().initLoader(PRODUCT_LOADER_HISTORY, null, this);
+
+        //getSupportLoaderManager().restartLoader(PRODUCT_LOADER_HISTORY, null, PurchaseHistoryActivity.this);
+
     }
 
     @NonNull
@@ -140,32 +142,13 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
 
     }
 
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-
-    }
-
-    public void showDatePickerDialog() {
-        DialogFragment dialog = new DatePickerDialogFragments();
-
-        calendarView = (CalendarView)findViewById(R.id.calendarView);
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                selectedDate = new StringBuilder().append(year).append(".0").append(month + 1)
-                        .append(".").append(dayOfMonth).toString();
-                Toast.makeText(PurchaseHistoryActivity.this, selectedDate, Toast.LENGTH_LONG).show();
-
-                getSupportLoaderManager().restartLoader(PRODUCT_LOADER_HISTORY, null, PurchaseHistoryActivity.this);
-            }
-        });
-
-        dialog.show(getSupportFragmentManager(), "DatePickerDialogFragment");
+    public void showDatePickerDialog(){
+        DialogFragment newFragment = new DatePickerDialogFragments();
+        newFragment.show(getSupportFragmentManager(), "missiles");
     }
 }
