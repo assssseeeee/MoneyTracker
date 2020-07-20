@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/padding_small"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingBottom="@dimen/padding_small">
 
     <TextView
         android:id="@+id/itemPriceTextView"
-        tools:text="50"
-        android:textSize="@dimen/big_text"
-        android:padding="@dimen/padding"
-        android:background="@color/red"
-        android:textColor="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@color/red"
+        android:padding="@dimen/padding"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/big_text"
+        tools:text="50" />
 
     <TextView
         android:id="@+id/itemNameTextView"
-        tools:text="food"
-        android:textSize="@dimen/big_text"
-        android:gravity="center_vertical"
-        android:textColor="@android:color/white"
-        android:paddingStart="@dimen/padding_small"
-        android:layout_alignBottom="@+id/itemPriceTextView"
-        android:layout_alignTop="@+id/itemPriceTextView"
-        android:background="@color/orange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/itemPriceTextView"
+        android:layout_alignBottom="@+id/itemPriceTextView"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/itemPriceTextView"/>
+        android:layout_toStartOf="@+id/itemPriceTextView"
+        android:background="@color/orange"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/padding_small"
+        android:paddingStart="@dimen/padding_small"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/big_text"
+        tools:text="food" />
+
+    <TextView
+        android:id="@+id/itemDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/itemNameTextView"
+        android:paddingStart="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding_small"
+        android:textSize="@dimen/small_text"
+        tools:text="date"
+        android:text="01/01/01"/>
 </RelativeLayout>
