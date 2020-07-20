@@ -8,23 +8,20 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
-import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.moneytracker.DatePickerDialogFragments;
 import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
@@ -32,7 +29,8 @@ import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PurchaseHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener, DatePickerDialogFragments.DatePickerDialogListener {
+public class PurchaseHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
+        View.OnClickListener, DatePickerDialogFragments.DatePickerDialogListener {
     private ExpensesCursorAdapter expensesCursorAdapter;
     private static String selectedDate;
     private ListView productHistoryListView;
@@ -45,14 +43,14 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_history);
 
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd ww.D.FF HH.mm");
+        selectedDate = dateFormat.format(date);
+        selectedMenuItem = 1;
+
         buttonChooseDate = findViewById(R.id.buttonChooseDate);
         buttonChooseDate.setOnClickListener(this);
         productHistoryListView = findViewById(R.id.productHistoryListView);
-
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-        selectedDate = dateFormat.format(date);
-        selectedMenuItem = 1;
 
         expensesCursorAdapter = new ExpensesCursorAdapter(this, null, false);
         productHistoryListView.setAdapter(expensesCursorAdapter);
@@ -80,23 +78,15 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                 AddingExpenses.COLUMN_DATE_REGISTERED
         };
         String selection;
-        String[] selectionArgs = {""};
         String column = AddingExpenses.COLUMN_DATE_REGISTERED;
 
         if (TextUtils.isEmpty(selectedDate)) {
             selection = null;
-            selectionArgs[0] = "";
-
         } else {
-
             if (selectedMenuItem == 1) {
-                selection = column + " = ?";
-                selectionArgs[0] = selectedDate;
-
+                selection = column + " LIKE '" + selectedDate + "%'";
             } else if (selectedMenuItem == 2) {
                 selection = column + " LIKE '2020.07%'";
-                selectionArgs = null;
-
             }
 //            else if (selectedMenuItem == 3) {
 //
@@ -105,15 +95,12 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
 //            }
             else if (selectedMenuItem == 5) {
                 selection = null;
-                selectionArgs = null;
-
             } else {
-                selection = null;
-                selectionArgs[0] = "";
+                selection = column + " = ?";
             }
         }
 
-        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, selectionArgs, null);
+        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, null, null);
         return cursorLoader;
     }
 

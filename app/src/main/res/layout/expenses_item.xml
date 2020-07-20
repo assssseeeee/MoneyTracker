@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/padding_small">
+    android:paddingBottom="@dimen/padding_very_small">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/itemPriceTextView"/>
 
     <TextView
         android:id="@+id/itemPriceTextView"
@@ -26,7 +31,7 @@
         android:layout_toStartOf="@+id/itemPriceTextView"
         android:background="@color/orange"
         android:gravity="center_vertical"
-        android:paddingBottom="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding"
         android:paddingStart="@dimen/padding_small"
         android:textColor="@android:color/white"
         android:textSize="@dimen/big_text"

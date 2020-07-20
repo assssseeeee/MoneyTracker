@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@color/white_gray_color"
     android:orientation="vertical"
     android:padding="@dimen/padding_small"
     tools:context=".activities.IncomeListActivity">

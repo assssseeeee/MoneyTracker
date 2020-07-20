@@ -8,6 +8,7 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -54,7 +55,7 @@ public class IncomeListActivity extends AppCompatActivity
         productCategory = 1;
 
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd ww.D.FF HH.mm");
         dateNow = dateFormat.format(date);
 
         Bundle arguments = getIntent().getExtras();
@@ -116,9 +117,8 @@ public class IncomeListActivity extends AppCompatActivity
             selection = null;
         } else {
             selection = AddingExpenses.COLUMN_PRICE_SIGN + " = '" + priceSign + "' and "
-                    + AddingExpenses.COLUMN_DATE_REGISTERED + " = '" + dateNow + "'";
+                    + AddingExpenses.COLUMN_DATE_REGISTERED + " LIKE '" + dateNow + "%'";
         }
-
         CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, null, null);
         return cursorLoader;
     }

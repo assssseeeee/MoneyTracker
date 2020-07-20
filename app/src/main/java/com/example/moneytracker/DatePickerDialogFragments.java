@@ -1,4 +1,4 @@
-package com.example.moneytracker.activities;
+package com.example.moneytracker;
 
 import android.app.Activity;
 import android.app.AlertDialog;
