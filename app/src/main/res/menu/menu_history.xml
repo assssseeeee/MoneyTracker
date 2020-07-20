@@ -4,6 +4,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/menu_history_for_day"
+            android:checked="true"
             android:orderInCategory="1"
             android:title="@string/menu_history_for_day" />
         <item

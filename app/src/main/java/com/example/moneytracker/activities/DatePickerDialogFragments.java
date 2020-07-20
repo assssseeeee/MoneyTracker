@@ -22,52 +22,58 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.moneytracker.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DatePickerDialogFragments extends DialogFragment {
     private CalendarView calendarView;
     private String selectedDate;
 
-
-    public interface DataPickerDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog);
+    public static interface DatePickerDialogListener {
+        public void onDialogPositiveClick(String dialogSelectedDate);
     }
 
-
-    DataPickerDialogListener dataPickerDialogListener;
+    DatePickerDialogListener datePickerDialogListener;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        calendarView.findViewById(R.id.calendarView);
+    public void onAttach(@NonNull Activity activity) {
+        super.onAttach(activity);
+        try {
+            datePickerDialogListener = (DatePickerDialogListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement DataPickerDialogListener");
+        }
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_choose_date, null);
+
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        selectedDate = dateFormat.format(date);
+
+        calendarView = view.findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 selectedDate = new StringBuilder().append(year).append(".0").append(month + 1)
                         .append(".").append(dayOfMonth).toString();
-                Log.d("selectedDate", selectedDate);
             }
         });
-        return inflater.inflate(R.layout.dialog_choose_date, container, false);
+
+        builder.setTitle(R.string.title_set_date)
+                .setView(view).setPositiveButton(R.string.button_alert_dialog_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                datePickerDialogListener.onDialogPositiveClick(selectedDate);
+            }
+        });
+        return builder.create();
     }
-
-//    @Override
-//    public void onAttach(@NonNull Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            // Instantiate the NoticeDialogListener so we can send events to the host
-//            dataPickerDialogListener = (DataPickerDialogListener) activity;
-//        } catch (ClassCastException e) {
-//            // The activity doesn't implement the interface, throw exception
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement NoticeDialogListener");
-//        }
-//    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
-    }
-
 }

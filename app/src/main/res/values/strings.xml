@@ -54,4 +54,7 @@
     <string name="menu_history_for_month">за месяц</string>
     <string name="menu_history_for_year">за год</string>
 
+
+    <string name="title_set_date">Выберите дату</string>
+
 </resources>

@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,18 +32,18 @@ import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PurchaseHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener, DatePickerDialogFragments.DataPickerDialogListener{
+public class PurchaseHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener, DatePickerDialogFragments.DatePickerDialogListener {
     private ExpensesCursorAdapter expensesCursorAdapter;
     private static String selectedDate;
     private ListView productHistoryListView;
     private Button buttonChooseDate;
     private static final int PRODUCT_LOADER_HISTORY = 333;
+    private static int selectedMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_history);
-
 
         buttonChooseDate = findViewById(R.id.buttonChooseDate);
         buttonChooseDate.setOnClickListener(this);
@@ -51,6 +52,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         selectedDate = dateFormat.format(date);
+        selectedMenuItem = 1;
 
         expensesCursorAdapter = new ExpensesCursorAdapter(this, null, false);
         productHistoryListView.setAdapter(expensesCursorAdapter);
@@ -64,9 +66,6 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
             }
         });
         getSupportLoaderManager().initLoader(PRODUCT_LOADER_HISTORY, null, this);
-
-        //getSupportLoaderManager().restartLoader(PRODUCT_LOADER_HISTORY, null, PurchaseHistoryActivity.this);
-
     }
 
     @NonNull
@@ -80,16 +79,38 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                 AddingExpenses.COLUMN_PRODUCT_CATEGORY,
                 AddingExpenses.COLUMN_DATE_REGISTERED
         };
-
         String selection;
         String[] selectionArgs = {""};
+        String column = AddingExpenses.COLUMN_DATE_REGISTERED;
 
         if (TextUtils.isEmpty(selectedDate)) {
             selection = null;
             selectionArgs[0] = "";
+
         } else {
-            selection = AddingExpenses.COLUMN_DATE_REGISTERED + " = ?";
-            selectionArgs[0] = selectedDate;
+
+            if (selectedMenuItem == 1) {
+                selection = column + " = ?";
+                selectionArgs[0] = selectedDate;
+
+            } else if (selectedMenuItem == 2) {
+                selection = column + " LIKE '2020.07%'";
+                selectionArgs = null;
+
+            }
+//            else if (selectedMenuItem == 3) {
+//
+//            } else if (selectedMenuItem == 4) {
+//
+//            }
+            else if (selectedMenuItem == 5) {
+                selection = null;
+                selectionArgs = null;
+
+            } else {
+                selection = null;
+                selectionArgs[0] = "";
+            }
         }
 
         CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, selectionArgs, null);
@@ -108,12 +129,11 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.buttonChooseDate:
                 showDatePickerDialog();
                 break;
         }
-
     }
 
     @Override
@@ -125,16 +145,31 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.menu_history_for_day:
+                selectedMenuItem = 1;
+                item.setChecked(true);
+                getSupportLoaderManager().restartLoader(PRODUCT_LOADER_HISTORY, null, this);
                 break;
             case R.id.menu_history_for_week:
+                selectedMenuItem = 2;
+                item.setChecked(true);
+                getSupportLoaderManager().restartLoader(PRODUCT_LOADER_HISTORY, null, this);
                 break;
             case R.id.menu_history_for_month:
+                selectedMenuItem = 3;
+                item.setChecked(true);
+                getSupportLoaderManager().restartLoader(PRODUCT_LOADER_HISTORY, null, this);
                 break;
             case R.id.menu_menu_history_for_year:
+                selectedMenuItem = 4;
+                item.setChecked(true);
+                getSupportLoaderManager().restartLoader(PRODUCT_LOADER_HISTORY, null, this);
                 break;
             case R.id.menu_menu_history_all:
+                selectedMenuItem = 5;
+                item.setChecked(true);
+                getSupportLoaderManager().restartLoader(PRODUCT_LOADER_HISTORY, null, this);
                 break;
             default:
                 break;
@@ -142,13 +177,14 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-
-    }
-
-    public void showDatePickerDialog(){
+    public void showDatePickerDialog() {
         DialogFragment newFragment = new DatePickerDialogFragments();
         newFragment.show(getSupportFragmentManager(), "missiles");
+    }
+
+    @Override
+    public void onDialogPositiveClick(String dialogSelectedDate) {
+        selectedDate = dialogSelectedDate;
+        getSupportLoaderManager().restartLoader(PRODUCT_LOADER_HISTORY, null, PurchaseHistoryActivity.this);
     }
 }
