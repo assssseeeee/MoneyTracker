@@ -3,31 +3,24 @@ package com.example.moneytracker;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.CalendarView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AlertDialogLayout;
 import androidx.fragment.app.DialogFragment;
-
-import com.example.moneytracker.R;
-
+import com.example.moneytracker.data.MoneyTrackerContract;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DatePickerDialogFragments extends DialogFragment {
     private CalendarView calendarView;
-    private String selectedDate;
+    private static String selectedDate;
+    private static String selectedDateCalendar;
 
     public static interface DatePickerDialogListener {
         public void onDialogPositiveClick(String dialogSelectedDate);
@@ -50,20 +43,28 @@ public class DatePickerDialogFragments extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_choose_date, null);
 
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-        selectedDate = dateFormat.format(date);
+        final Date date = new Date();
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(MoneyTrackerContract.DATE_FORMAT);
+        selectedDate = simpleDateFormat.format(date);
 
         calendarView = view.findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                selectedDate = new StringBuilder().append(year).append(".0").append(month + 1)
+                selectedDateCalendar = new StringBuilder().append(year).append(".0").append(month + 1)
                         .append(".").append(dayOfMonth).toString();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+                try {
+                    Date dateFormat = formatter.parse(selectedDateCalendar);
+                    selectedDate = simpleDateFormat.format(dateFormat);
+                    Log.d("formatDate", selectedDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

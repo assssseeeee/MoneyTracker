@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
+import com.example.moneytracker.data.MoneyTrackerContract;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
 import java.text.SimpleDateFormat;
@@ -55,8 +56,8 @@ public class IncomeListActivity extends AppCompatActivity
         productCategory = 1;
 
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd ww.D.FF HH.mm");
-        dateNow = dateFormat.format(date);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(MoneyTrackerContract.DATE_FORMAT);
+        dateNow = simpleDateFormat.format(date);
 
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
@@ -117,7 +118,7 @@ public class IncomeListActivity extends AppCompatActivity
             selection = null;
         } else {
             selection = AddingExpenses.COLUMN_PRICE_SIGN + " = '" + priceSign + "' and "
-                    + AddingExpenses.COLUMN_DATE_REGISTERED + " LIKE '" + dateNow + "%'";
+                    + AddingExpenses.COLUMN_DATE_REGISTERED + " LIKE '" + dateNow.substring(0, MoneyTrackerContract.LIMIT_DATE_DAY) + "%'";
         }
         CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, null, null);
         return cursorLoader;

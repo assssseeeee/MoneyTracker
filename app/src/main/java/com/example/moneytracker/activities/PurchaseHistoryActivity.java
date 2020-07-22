@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.ListView;
 import com.example.moneytracker.DatePickerDialogFragments;
 import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
+import com.example.moneytracker.data.MoneyTrackerContract;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
 import java.text.SimpleDateFormat;
@@ -36,7 +38,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
     private ListView productHistoryListView;
     private Button buttonChooseDate;
     private static final int PRODUCT_LOADER_HISTORY = 333;
-    private static int selectedMenuItem;
+    private static int selectedMenuItem = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +46,8 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
         setContentView(R.layout.activity_purchase_history);
 
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd ww.D.FF HH.mm");
-        selectedDate = dateFormat.format(date);
-        selectedMenuItem = 1;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(MoneyTrackerContract.DATE_FORMAT);
+        selectedDate = simpleDateFormat.format(date);
 
         buttonChooseDate = findViewById(R.id.buttonChooseDate);
         buttonChooseDate.setOnClickListener(this);
@@ -84,9 +85,10 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
             selection = null;
         } else {
             if (selectedMenuItem == 1) {
-                selection = column + " LIKE '" + selectedDate + "%'";
+                selection = column + " LIKE '" + selectedDate.substring(0, MoneyTrackerContract.LIMIT_DATE_DAY) + "%'";
             } else if (selectedMenuItem == 2) {
-                selection = column + " LIKE '2020.07%'";
+                selection = column + " LIKE '%" + selectedDate.substring(selectedDate.indexOf('/') + 1, selectedDate.indexOf('-')) + "%'";
+                Log.d("dateSelect", selection);
             }
 //            else if (selectedMenuItem == 3) {
 //
@@ -96,7 +98,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
             else if (selectedMenuItem == 5) {
                 selection = null;
             } else {
-                selection = column + " = ?";
+                selection = null;
             }
         }
 

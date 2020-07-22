@@ -17,6 +17,10 @@ public final class MoneyTrackerContract {
     public static final String PATH_EXPENSES = "expenses";
     public static final Uri BASE_CONTENT_URI = Uri.parse(SHEME + AUTHORITY);
 
+    public static final String DATE_FORMAT= "yyyy.MM.dd/D-FF HH:mm";
+    public static final int LIMIT_DATE_DAY = 10;
+    public static final int LIMIT_DATE_DAY_OF_YEAR = 12;
+
     public static final class AddingExpenses {
         public static final String TABLE_NAME = "expenses";
 

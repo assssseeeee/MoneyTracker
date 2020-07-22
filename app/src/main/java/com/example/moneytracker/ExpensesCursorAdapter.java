@@ -24,10 +24,12 @@ public class ExpensesCursorAdapter extends CursorAdapter {
 
         TextView itemNameTextView = view.findViewById(R.id.itemNameTextView);
         TextView itemPriceTextView = view.findViewById(R.id.itemPriceTextView);
+        TextView itemDateRegistredTextView = view.findViewById(R.id.itemDateTextView);
 
         String itemName = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_NAME));
         String itemPrice = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRODUCT_PRICE));
         String itemPriceSign = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_PRICE_SIGN));
+        String itemDateRegistred = cursor.getString(cursor.getColumnIndexOrThrow(AddingExpenses.COLUMN_DATE_REGISTERED));
 
         if(itemPriceSign.equals("-")){
             itemNameTextView.setBackgroundColor(itemNameTextView.getResources().getColor(R.color.lightRed));
@@ -39,5 +41,6 @@ public class ExpensesCursorAdapter extends CursorAdapter {
 
         itemNameTextView.setText(itemName);
         itemPriceTextView.setText(itemPrice);
+        itemDateRegistredTextView.setText(itemDateRegistred);
     }
 }
