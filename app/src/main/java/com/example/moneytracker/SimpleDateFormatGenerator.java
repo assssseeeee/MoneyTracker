@@ -15,7 +15,7 @@ public class SimpleDateFormatGenerator {
         return simpleDateFormat.format(date);
     }
 
-    
+
 
 
 
