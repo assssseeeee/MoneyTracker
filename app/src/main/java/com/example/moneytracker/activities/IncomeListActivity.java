@@ -27,13 +27,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.moneytracker.DateFormatter;
 import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
 import com.example.moneytracker.data.MoneyTrackerContract;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class IncomeListActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -54,10 +53,8 @@ public class IncomeListActivity extends AppCompatActivity
         setContentView(R.layout.activity_income_list);
 
         productCategory = 1;
-
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(MoneyTrackerContract.DATE_FORMAT);
-        dateNow = simpleDateFormat.format(date);
+        DateFormatter dateFormatter = new DateFormatter();
+        dateNow = dateFormatter.dateFormatYyyyMmDdFfHhMm();
 
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {

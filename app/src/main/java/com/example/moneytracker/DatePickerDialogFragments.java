@@ -21,6 +21,7 @@ public class DatePickerDialogFragments extends DialogFragment {
     private CalendarView calendarView;
     private static String selectedDate;
     private static String selectedDateCalendar;
+    DateFormatter dateFormatter;
 
     public static interface DatePickerDialogListener {
         public void onDialogPositiveClick(String dialogSelectedDate);
@@ -47,9 +48,10 @@ public class DatePickerDialogFragments extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_choose_date, null);
 
-        final Date date = new Date();
+        dateFormatter = new DateFormatter();
+        selectedDate = dateFormatter.dateFormatYyyyMmDdFfHhMm();
+
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(MoneyTrackerContract.DATE_FORMAT);
-        selectedDate = simpleDateFormat.format(date);
 
         calendarView = view.findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -61,7 +63,6 @@ public class DatePickerDialogFragments extends DialogFragment {
                 try {
                     Date dateFormat = formatter.parse(selectedDateCalendar);
                     selectedDate = simpleDateFormat.format(dateFormat);
-                    Log.d("formatDate", selectedDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

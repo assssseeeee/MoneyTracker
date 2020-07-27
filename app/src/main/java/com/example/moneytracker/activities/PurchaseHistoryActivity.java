@@ -21,15 +21,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-
+import com.example.moneytracker.DateFormatter;
 import com.example.moneytracker.DatePickerDialogFragments;
 import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
 import com.example.moneytracker.data.MoneyTrackerContract;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class PurchaseHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
         View.OnClickListener, DatePickerDialogFragments.DatePickerDialogListener {
@@ -45,9 +43,8 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_history);
 
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(MoneyTrackerContract.DATE_FORMAT);
-        selectedDate = simpleDateFormat.format(date);
+        DateFormatter dateFormatter = new DateFormatter();
+        selectedDate = dateFormatter.dateFormatYyyyMmDdFfHhMm();
 
         buttonChooseDate = findViewById(R.id.buttonChooseDate);
         buttonChooseDate.setOnClickListener(this);
@@ -79,6 +76,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                 AddingExpenses.COLUMN_DATE_REGISTERED
         };
         String selection;
+        String[] selectionArgs = {""};
         String column = AddingExpenses.COLUMN_DATE_REGISTERED;
 
         if (TextUtils.isEmpty(selectedDate)) {
@@ -86,8 +84,11 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
         } else {
             if (selectedMenuItem == 1) {
                 selection = column + " LIKE '" + selectedDate.substring(0, MoneyTrackerContract.LIMIT_DATE_DAY) + "%'";
+                selectionArgs = null;
             } else if (selectedMenuItem == 2) {
-                selection = column + " LIKE '%" + selectedDate.substring(selectedDate.indexOf('/') + 1, selectedDate.indexOf('-')) + "%'";
+                selection = column + " = LIKE ?'%";
+                selectionArgs = null;
+
                 Log.d("dateSelect", selection);
             }
 //            else if (selectedMenuItem == 3) {
@@ -97,12 +98,14 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
 //            }
             else if (selectedMenuItem == 5) {
                 selection = null;
+                selectionArgs = null;
             } else {
                 selection = null;
+                selectionArgs = null;
             }
         }
 
-        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, null, null);
+        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, selectionArgs, null);
         return cursorLoader;
     }
 
