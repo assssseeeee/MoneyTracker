@@ -49,7 +49,7 @@ public class DatePickerDialogFragments extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_choose_date, null);
 
         dateHandler = new DateHandler();
-        selectedDate = dateHandler.dateFormatYyyyMmDdFfHhMm();
+        selectedDate = dateHandler.dateFormatYyyyMmDdHhMm();
 
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(MoneyTrackerContract.DATE_FORMAT);
 

@@ -42,7 +42,7 @@ public class MoneyTrackerContentProvider extends ContentProvider {
                 cursor = db.query(AddingExpenses.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             case EXPENSES_ID:
-                selection = AddingExpenses._ID + "=?";
+                selection = AddingExpenses._ID + " = ?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 cursor = db.query(AddingExpenses.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
@@ -111,7 +111,7 @@ public class MoneyTrackerContentProvider extends ContentProvider {
                 rowsDeleted = db.delete(AddingExpenses.TABLE_NAME, selection, selectionArgs);
                 break;
             case EXPENSES_ID:
-                selection = AddingExpenses._ID + "=?";
+                selection = AddingExpenses._ID + " = ?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = db.delete(AddingExpenses.TABLE_NAME, selection, selectionArgs);
                 break;

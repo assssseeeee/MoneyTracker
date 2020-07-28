@@ -56,7 +56,7 @@ public class IncomeListActivity extends AppCompatActivity
 
         productCategory = 1;
         dateHandler = new DateHandler();
-        dateNow = dateHandler.dateFormatYyyyMmDdFfHhMm();
+        dateNow = dateHandler.dateFormatYyyyMmDdHhMm();
 
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {

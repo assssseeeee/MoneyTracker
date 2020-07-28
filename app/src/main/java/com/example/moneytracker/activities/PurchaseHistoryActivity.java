@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
 import com.example.moneytracker.DateHandler;
 import com.example.moneytracker.DatePickerDialogFragments;
 import com.example.moneytracker.ExpensesCursorAdapter;
@@ -48,7 +49,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
         setContentView(R.layout.activity_purchase_history);
 
         dateHandler = new DateHandler();
-        selectedDate = dateHandler.dateFormatYyyyMmDdFfHhMm();
+        selectedDate = dateHandler.dateFormatYyyyMmDdHhMm();
 
         buttonChooseDate = findViewById(R.id.buttonChooseDate);
         buttonChooseDate.setOnClickListener(this);
@@ -80,8 +81,9 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                 AddingExpenses.COLUMN_DATE_REGISTERED
         };
         String selection;
-        String[] selectionArgs = {""};
+        String[] selectionArgs = null;
         String column = AddingExpenses.COLUMN_DATE_REGISTERED;
+        String value;
 
         if (TextUtils.isEmpty(selectedDate)) {
             selection = null;
@@ -90,26 +92,26 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                 selection = column + " LIKE '" + selectedDate.substring(0, MoneyTrackerContract.LIMIT_DATE_DAY) + "%'";
                 selectionArgs = null;
             } else if (selectedMenuItem == 2) {
-                selection = column + " = LIKE ?'%";
                 amountDays = 7;
-                ArrayList<String> stringArrayList = dateHandler.dateTimeFormatter(selectedDate, amountDays);
+                ArrayList<String> stringArrayList = new ArrayList<>(dateHandler.dateTimeFormatter(selectedDate, amountDays));
 
-                int length = stringArrayList.size();
-                for(int i = 0; i > length; i++){
-                    selectionArgs[i] = stringArrayList.get(i);
+                selection = column + " = ?";
+                selectionArgs = new String[stringArrayList.size()];
+
+                for (int i = 0; i < stringArrayList.size(); i++) {
+                    int count = stringArrayList.get(i).length();
+                    value = stringArrayList.get(i);
+                    selectionArgs[i] = value.substring(0, count - 6);
                 }
-            }
-//            else if (selectedMenuItem == 3) {
-//
-//            } else if (selectedMenuItem == 4) {
-//
-//            }
-            else if (selectedMenuItem == 5) {
+
+            } else if (selectedMenuItem == 3) {
                 selection = null;
-                selectionArgs = null;
+            } else if (selectedMenuItem == 4) {
+                selection = null;
+            } else if (selectedMenuItem == 5) {
+                selection = null;
             } else {
                 selection = null;
-                selectionArgs = null;
             }
         }
 
