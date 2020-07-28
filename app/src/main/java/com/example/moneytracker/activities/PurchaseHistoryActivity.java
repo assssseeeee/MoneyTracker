@@ -21,12 +21,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import com.example.moneytracker.DateFormatter;
+import com.example.moneytracker.DateHandler;
 import com.example.moneytracker.DatePickerDialogFragments;
 import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
 import com.example.moneytracker.data.MoneyTrackerContract;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
+
+import java.util.ArrayList;
 
 
 public class PurchaseHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
@@ -35,16 +37,18 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
     private static String selectedDate;
     private ListView productHistoryListView;
     private Button buttonChooseDate;
+    DateHandler dateHandler;
     private static final int PRODUCT_LOADER_HISTORY = 333;
     private static int selectedMenuItem = 1;
+    private static int amountDays = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_history);
 
-        DateFormatter dateFormatter = new DateFormatter();
-        selectedDate = dateFormatter.dateFormatYyyyMmDdFfHhMm();
+        dateHandler = new DateHandler();
+        selectedDate = dateHandler.dateFormatYyyyMmDdFfHhMm();
 
         buttonChooseDate = findViewById(R.id.buttonChooseDate);
         buttonChooseDate.setOnClickListener(this);
@@ -87,9 +91,13 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                 selectionArgs = null;
             } else if (selectedMenuItem == 2) {
                 selection = column + " = LIKE ?'%";
-                selectionArgs = null;
+                amountDays = 7;
+                ArrayList<String> stringArrayList = dateHandler.dateTimeFormatter(selectedDate, amountDays);
 
-                Log.d("dateSelect", selection);
+                int length = stringArrayList.size();
+                for(int i = 0; i > length; i++){
+                    selectionArgs[i] = stringArrayList.get(i);
+                }
             }
 //            else if (selectedMenuItem == 3) {
 //

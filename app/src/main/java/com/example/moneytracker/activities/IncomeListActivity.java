@@ -27,7 +27,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.moneytracker.DateFormatter;
+
+import com.example.moneytracker.DateHandler;
 import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
 import com.example.moneytracker.data.MoneyTrackerContract;
@@ -40,6 +41,7 @@ public class IncomeListActivity extends AppCompatActivity
     private EditText editTextProduct, editTextPrice;
     private Button buttonAddProduct;
     ListView listViewProduct;
+    DateHandler dateHandler;
     private ExpensesCursorAdapter expensesCursorAdapter;
     Uri currentProductUri;
     private static String priceSign;
@@ -53,8 +55,8 @@ public class IncomeListActivity extends AppCompatActivity
         setContentView(R.layout.activity_income_list);
 
         productCategory = 1;
-        DateFormatter dateFormatter = new DateFormatter();
-        dateNow = dateFormatter.dateFormatYyyyMmDdFfHhMm();
+        dateHandler = new DateHandler();
+        dateNow = dateHandler.dateFormatYyyyMmDdFfHhMm();
 
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
