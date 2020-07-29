@@ -145,7 +145,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                         + column + dbQuery
                         + column + dbQuery
                         + column + dbQueryEnd;
-                
+
                 amountDays = 30;
                 ArrayList<String> stringArrayList = new ArrayList<>(dateHandler.dateTimeFormatter(selectedDate, amountDays));
                 selectionArgs = new String[stringArrayList.size()];
@@ -157,7 +157,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                 }
 
 
-
+                
             } else if (selectedMenuItem == 4) {
                 selection = null;
                 selectionArgs = null;
