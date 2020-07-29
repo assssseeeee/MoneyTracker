@@ -1,0 +1,45 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="200dp"
+    android:layout_width="300dp"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editTextChangeProductDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:hint="@string/hint_product_name" />
+
+    <EditText
+        android:id="@+id/editTextChangePriceDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:hint="@string/hint_product_price" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonSaveChangeDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_small"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:layout_weight="1"
+            android:text="@string/button_save_product" />
+
+        <Button
+            android:id="@+id/buttonDeleteChangeDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_small"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:layout_weight="1"
+            android:text="@string/button_delete_product" />
+    </LinearLayout>
+
+</LinearLayout>
