@@ -80,9 +80,12 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                 AddingExpenses.COLUMN_PRODUCT_CATEGORY,
                 AddingExpenses.COLUMN_DATE_REGISTERED
         };
+
         String selection;
-        String[] selectionArgs = null;
+        String[] selectionArgs = {""};
         String column = AddingExpenses.COLUMN_DATE_REGISTERED;
+        String dbQuery = " LIKE '%' || ? || '%' OR ";
+        String dbQueryEnd = " LIKE '%' || ? || '%'";
         String value;
 
         if (TextUtils.isEmpty(selectedDate)) {
@@ -92,29 +95,80 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                 selection = column + " LIKE '" + selectedDate.substring(0, MoneyTrackerContract.LIMIT_DATE_DAY) + "%'";
                 selectionArgs = null;
             } else if (selectedMenuItem == 2) {
+                selection = column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQueryEnd;
+
                 amountDays = 7;
                 ArrayList<String> stringArrayList = new ArrayList<>(dateHandler.dateTimeFormatter(selectedDate, amountDays));
-
-                selection = column + " = ?";
                 selectionArgs = new String[stringArrayList.size()];
 
                 for (int i = 0; i < stringArrayList.size(); i++) {
                     int count = stringArrayList.get(i).length();
-                    value = stringArrayList.get(i);
+                    value = String.valueOf(stringArrayList.get(i));
                     selectionArgs[i] = value.substring(0, count - 6);
                 }
 
             } else if (selectedMenuItem == 3) {
-                selection = null;
+                selection = column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQuery
+                        + column + dbQueryEnd;
+                
+                amountDays = 30;
+                ArrayList<String> stringArrayList = new ArrayList<>(dateHandler.dateTimeFormatter(selectedDate, amountDays));
+                selectionArgs = new String[stringArrayList.size()];
+
+                for (int i = 0; i < stringArrayList.size(); i++) {
+                    int count = stringArrayList.get(i).length();
+                    value = String.valueOf(stringArrayList.get(i));
+                    selectionArgs[i] = value.substring(0, count - 6);
+                }
+
+
+
             } else if (selectedMenuItem == 4) {
                 selection = null;
+                selectionArgs = null;
             } else if (selectedMenuItem == 5) {
                 selection = null;
+                selectionArgs = null;
             } else {
                 selection = null;
+                selectionArgs = null;
             }
         }
-
         CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, selectionArgs, null);
         return cursorLoader;
     }
