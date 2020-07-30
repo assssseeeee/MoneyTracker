@@ -34,7 +34,7 @@ public class ChangeProductDialogFragments extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        
+
 
         return null;
     }
