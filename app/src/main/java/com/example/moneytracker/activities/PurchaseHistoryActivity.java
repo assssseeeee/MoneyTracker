@@ -7,30 +7,25 @@ import androidx.fragment.app.DialogFragment;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
-
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-
 import com.example.moneytracker.DateHandler;
 import com.example.moneytracker.DatePickerDialogFragments;
 import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
 import com.example.moneytracker.data.MoneyTrackerContract;
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
-
 import java.util.ArrayList;
-
 
 public class PurchaseHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
         View.OnClickListener, DatePickerDialogFragments.DatePickerDialogListener {
