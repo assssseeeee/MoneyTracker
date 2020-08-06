@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.fragment.app.DialogFragment;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
@@ -25,10 +26,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.moneytracker.ChangeProductDialogFragments;
 import com.example.moneytracker.DateHandler;
+import com.example.moneytracker.DatePickerDialogFragments;
 import com.example.moneytracker.ExpensesCursorAdapter;
 import com.example.moneytracker.R;
 import com.example.moneytracker.data.MoneyTrackerContract;
@@ -36,7 +40,7 @@ import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
 
 
 public class IncomeListActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<Cursor> {
+        implements LoaderManager.LoaderCallbacks<Cursor>, ChangeProductDialogFragments.ChangeProductDialogListener {
     private static final int PRODUCT_LOADER = 123;
     private EditText editTextProduct, editTextPrice;
     private Button buttonAddProduct;
@@ -82,10 +86,12 @@ public class IncomeListActivity extends AppCompatActivity
         listViewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(IncomeListActivity.this, ChangeProductActivity.class);
-                Uri currentProductUri = ContentUris.withAppendedId(AddingExpenses.CONTENT_URI, id);
-                intent.setData(currentProductUri);
-                startActivity(intent);
+                TextView productName = view.findViewById(R.id.itemNameTextView);
+                TextView productPrice = view.findViewById(R.id.itemPriceTextView);
+
+                String productNameString = productName.getText().toString();
+                String productPriceString = productPrice.getText().toString();
+                showChangeProductDialog(productNameString, productPriceString);
             }
         });
         getSupportLoaderManager().initLoader(PRODUCT_LOADER, null, this);
@@ -173,5 +179,67 @@ public class IncomeListActivity extends AppCompatActivity
             }
         }
     }
+
+    @Override
+    public void onDialogPositiveClick(String productName, String productPrice) {
+        if (TextUtils.isEmpty(productName)) {
+            Toast.makeText(this, R.string.toast_enter_product_name, Toast.LENGTH_SHORT).show();
+            return;
+        } else if (TextUtils.isEmpty(productPrice)) {
+            Toast.makeText(this, R.string.toast_enter_product_price, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(AddingExpenses.COLUMN_PRODUCT_NAME, productName);
+        contentValues.put(AddingExpenses.COLUMN_PRODUCT_PRICE, productPrice);
+        contentValues.put(AddingExpenses.COLUMN_PRICE_SIGN, priceSign);
+        contentValues.put(AddingExpenses.COLUMN_PRODUCT_CATEGORY, productCategory);
+        contentValues.put(AddingExpenses.COLUMN_DATE_REGISTERED, dateNow);
+
+        if (currentProductUri == null) {
+            ContentResolver contentResolver = getContentResolver();
+            Uri uri = contentResolver.insert(AddingExpenses.CONTENT_URI, contentValues);
+
+            if (uri == null) {
+                Toast.makeText(this, "Insertion of data in the table failed for \" + uri",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, R.string.toast_product_saved,
+                        Toast.LENGTH_LONG).show();
+            }
+        } else {
+            int rowsChanget = getContentResolver().update(currentProductUri, contentValues, null, null);
+            if (rowsChanget == 0) {
+                Toast.makeText(this, "Saving of data in the table failed for \" + uri",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, R.string.toast_product_updated,
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onDialogPositiveClick() {
+
+    }
+
+
+    @Override
+    public void onDialogNegativeClick(String data) {
+
+    }
+
+
+    public void showChangeProductDialog(String productName, String productPrice) {
+        DialogFragment newFragment = new ChangeProductDialogFragments();
+        Bundle arg = new Bundle();
+        arg.putString("productName", productName);
+        arg.putString("productPrice", productPrice);
+        newFragment.setArguments(arg);
+        newFragment.show(getSupportFragmentManager(), "missiles");
+    }
+
+
 }
 

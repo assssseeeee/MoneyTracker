@@ -56,5 +56,6 @@
 
 
     <string name="title_set_date">Выберите дату</string>
+    <string name="title_edit_product_dialog">Редактировать запись</string>
 
 </resources>
