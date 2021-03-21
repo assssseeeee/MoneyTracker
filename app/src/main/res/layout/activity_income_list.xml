@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,45 +10,53 @@
     android:padding="@dimen/padding_small"
     tools:context=".activities.IncomeListActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/editTextProduct"
+        android:layout_width="@dimen/no_padding"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:background="@android:color/transparent"
+        android:hint="@string/enter_product_name"
+        android:gravity="center"
+        android:inputType="text"
+        android:layout_margin="@dimen/padding_small"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/editTextPrice"/>
 
-        <EditText
-            android:id="@+id/editTextProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding_small"
-            android:inputType="text"
-            android:background="@android:color/transparent"
-            android:hint="@string/enter_product_name" />
+    <EditText
+        android:id="@+id/editTextPrice"
+        android:layout_width="@dimen/no_padding"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:hint="@string/coast"
+        android:inputType="numberDecimal"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/editTextProduct"
+        app:layout_constraintRight_toLeftOf="@+id/buttonAddProduct"/>
 
-        <EditText
-            android:id="@+id/editTextPrice"
-            android:inputType="numberDecimal"
-            android:layout_width="@dimen/padding"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:hint="@string/coast"/>
-
-        <Button
-            android:id="@+id/buttonAddProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/button_add"
-            android:textSize="@dimen/big_text" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/buttonAddProduct"
+        android:layout_width="@dimen/no_padding"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:text="@string/button_add"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/editTextPrice"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <ListView
         android:id="@+id/productListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/no_padding"
         android:layout_marginTop="@dimen/padding_small"
         android:divider="@android:color/transparent"
-        tools:listitem="@layout/expenses_item"/>
-</LinearLayout>
+        tools:listitem="@layout/expenses_item"
+        app:layout_constraintTop_toBottomOf="@+id/editTextProduct"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
