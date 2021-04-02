@@ -10,6 +10,15 @@
     android:padding="@dimen/padding_small"
     tools:context=".activities.MainActivity">
 
+    <view class="androidx.appcompat.app.AlertController$RecycleListView"
+        android:layout_width="@dimen/no_padding"
+        android:layout_height="@dimen/no_padding"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/buttonExpenseList"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+    </view>
+
     <Button
         android:id="@+id/buttonIncomeList"
         android:layout_width="@dimen/no_padding"
