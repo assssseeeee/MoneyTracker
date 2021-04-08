@@ -151,8 +151,6 @@ public class PurchaseHistoryActivity extends AppCompatActivity implements Loader
                     selectionArgs[i] = value.substring(0, count - 6);
                 }
 
-
-                
             } else if (selectedMenuItem == 4) {
                 selection = null;
                 selectionArgs = null;

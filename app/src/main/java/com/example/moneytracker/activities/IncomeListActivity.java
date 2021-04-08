@@ -52,6 +52,7 @@ public class IncomeListActivity extends AppCompatActivity
     private String dateNow;
     private boolean state;
     private int productCategory;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
