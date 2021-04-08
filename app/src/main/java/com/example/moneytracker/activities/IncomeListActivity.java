@@ -123,9 +123,11 @@ public class IncomeListActivity extends AppCompatActivity
             selection = null;
         } else {
             selection = AddingExpenses.COLUMN_PRICE_SIGN + " = '" + priceSign + "' and "
-                    + AddingExpenses.COLUMN_DATE_REGISTERED + " LIKE '" + dateNow.substring(0, MoneyTrackerContract.LIMIT_DATE_DAY) + "%'";
+                    + AddingExpenses.COLUMN_DATE_REGISTERED + " LIKE '"
+                    + dateNow.substring(0, MoneyTrackerContract.LIMIT_DATE_DAY) + "%'";
         }
-        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI, projection, selection, null, null);
+        CursorLoader cursorLoader = new CursorLoader(this, AddingExpenses.CONTENT_URI,
+                projection, selection, null, null);
         return cursorLoader;
     }
 

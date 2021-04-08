@@ -3,6 +3,7 @@ package com.example.moneytracker.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,10 +14,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.moneytracker.R;
+import com.example.moneytracker.RecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonIncomeList, buttonExpenseList;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonExpenseList = findViewById(R.id.buttonExpenseList);
         buttonIncomeList.setOnClickListener(this);
         buttonExpenseList.setOnClickListener(this);
+
+        recyclerView.findViewById(R.id.recyclerViewProduct);
     }
 
     @Override

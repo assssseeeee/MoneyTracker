@@ -10,14 +10,18 @@
     android:padding="@dimen/padding_small"
     tools:context=".activities.MainActivity">
 
-    <view class="androidx.appcompat.app.AlertController$RecycleListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewProduct"
         android:layout_width="@dimen/no_padding"
         android:layout_height="@dimen/no_padding"
+        android:scrollbars="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/buttonExpenseList"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-    </view>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonIncomeList">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <Button
         android:id="@+id/buttonIncomeList"
