@@ -233,7 +233,6 @@ public class IncomeListActivity extends AppCompatActivity
 
     }
 
-
     public void showChangeProductDialog(String productName, String productPrice) {
         DialogFragment newFragment = new ChangeProductDialogFragments();
         Bundle arg = new Bundle();

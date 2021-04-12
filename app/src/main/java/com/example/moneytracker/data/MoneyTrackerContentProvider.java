@@ -28,12 +28,13 @@ public class MoneyTrackerContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         databaseHelper = new DatabaseHelper(getContext());
+        databaseHelper.loadDatabaseFromFile();
         return true;
     }
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        SQLiteDatabase db = databaseHelper.open();
         Cursor cursor;
 
         int match = uriMatcher.match(uri);
