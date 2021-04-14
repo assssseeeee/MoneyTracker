@@ -68,7 +68,7 @@ public class ChangeProductActivity extends AppCompatActivity
             Uri uri = contentResolver.insert(AddingExpenses.CONTENT_URI, contentValues);
 
             if (uri == null) {
-                Toast.makeText(this, "Insertion of data in the table failed for \" + uri",
+                Toast.makeText(this, "Insertion of data in the table failed",
                         Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, R.string.toast_product_saved,
@@ -78,7 +78,7 @@ public class ChangeProductActivity extends AppCompatActivity
         } else {
             int rowsChanged = getContentResolver().update(currentProductUri, contentValues, null, null);
             if (rowsChanged == 0) {
-                Toast.makeText(this, "Saving of data in the table failed for \" + uri",
+                Toast.makeText(this, "Saving of data in the table failed",
                         Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, R.string.toast_product_updated,

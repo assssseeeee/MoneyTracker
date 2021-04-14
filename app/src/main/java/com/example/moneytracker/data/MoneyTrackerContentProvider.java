@@ -9,8 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.example.moneytracker.data.MoneyTrackerContract.AddingExpenses;
+import org.jetbrains.annotations.NotNull;
 
 public class MoneyTrackerContentProvider extends ContentProvider {
 
@@ -28,13 +28,12 @@ public class MoneyTrackerContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         databaseHelper = new DatabaseHelper(getContext());
-        databaseHelper.loadDatabaseFromFile();
         return true;
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        SQLiteDatabase db = databaseHelper.open();
+    public Cursor query(@NotNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
         Cursor cursor;
 
         int match = uriMatcher.match(uri);
@@ -69,7 +68,7 @@ public class MoneyTrackerContentProvider extends ContentProvider {
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NotNull Uri uri, ContentValues values) {
 
         String productName = values.getAsString(AddingExpenses.COLUMN_PRODUCT_NAME);
         if (productName == null) {

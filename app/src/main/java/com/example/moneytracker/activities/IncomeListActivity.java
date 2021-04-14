@@ -165,7 +165,7 @@ public class IncomeListActivity extends AppCompatActivity
             Uri uri = contentResolver.insert(AddingExpenses.CONTENT_URI, contentValues);
 
             if (uri == null) {
-                Toast.makeText(this, "Insertion of data in the table failed for \" + uri",
+                Toast.makeText(this, "Insertion of data in the table failed",
                         Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, R.string.toast_product_saved,
@@ -174,7 +174,7 @@ public class IncomeListActivity extends AppCompatActivity
         } else {
             int rowsChanget = getContentResolver().update(currentProductUri, contentValues, null, null);
             if (rowsChanget == 0) {
-                Toast.makeText(this, "Saving of data in the table failed for \" + uri",
+                Toast.makeText(this, "Saving of data in the table failed",
                         Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, R.string.toast_product_updated,
@@ -204,7 +204,7 @@ public class IncomeListActivity extends AppCompatActivity
             Uri uri = contentResolver.insert(AddingExpenses.CONTENT_URI, contentValues);
 
             if (uri == null) {
-                Toast.makeText(this, "Insertion of data in the table failed for \" + uri",
+                Toast.makeText(this, "Insertion of data in the table failed",
                         Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, R.string.toast_product_saved,
@@ -213,7 +213,7 @@ public class IncomeListActivity extends AppCompatActivity
         } else {
             int rowsChanget = getContentResolver().update(currentProductUri, contentValues, null, null);
             if (rowsChanget == 0) {
-                Toast.makeText(this, "Saving of data in the table failed for \" + uri",
+                Toast.makeText(this, "Saving of data in the table failed",
                         Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, R.string.toast_product_updated,

@@ -1,13 +1,19 @@
 package com.example.moneytracker.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +21,9 @@ import android.widget.Button;
 
 import com.example.moneytracker.R;
 import com.example.moneytracker.RecyclerViewAdapter;
+import com.example.moneytracker.data.MoneyTrackerContract;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     private Button buttonIncomeList, buttonExpenseList;
     private RecyclerView recyclerView;
@@ -34,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonExpenseList.setOnClickListener(this);
 
         recyclerView = findViewById(R.layout.recycler_view);
+
     }
 
     @Override
@@ -83,5 +91,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        String[] projection = {
+                MoneyTrackerContract.AddingExpenses._ID,
+                MoneyTrackerContract.AddingExpenses.COLUMN_PRODUCT_NAME,
+                MoneyTrackerContract.AddingExpenses.COLUMN_PRODUCT_PRICE,
+                MoneyTrackerContract.AddingExpenses.COLUMN_PRICE_SIGN,
+                MoneyTrackerContract.AddingExpenses.COLUMN_PRODUCT_CATEGORY,
+                MoneyTrackerContract.AddingExpenses.COLUMN_DATE_REGISTERED
+        };
+
+        String selection = null;
+
+        CursorLoader cursorLoader = new CursorLoader(this, MoneyTrackerContract.AddingExpenses.CONTENT_URI,
+                projection, selection, null, null);
+        return cursorLoader;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+
     }
 }

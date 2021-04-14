@@ -25,51 +25,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        String CREATE_EXPENSES_TABLE = "CREATE TABLE " + AddingExpenses.TABLE_NAME
-//                + "(" + AddingExpenses._ID + " INTEGER PRIMARY KEY,"
-//                + AddingExpenses.COLUMN_PRODUCT_NAME + " TEXT,"
-//                + AddingExpenses.COLUMN_PRODUCT_PRICE + " TEXT,"
-//                + AddingExpenses.COLUMN_PRICE_SIGN + " TEXT,"
-//                + AddingExpenses.COLUMN_PRODUCT_CATEGORY + " INTEGER,"
-//                + AddingExpenses.COLUMN_DATE_REGISTERED + " TEXT"
-//                + ")";
-//        db.execSQL(CREATE_EXPENSES_TABLE);
+        String CREATE_EXPENSES_TABLE = "CREATE TABLE " + AddingExpenses.TABLE_NAME
+                + "(" + AddingExpenses._ID + " INTEGER PRIMARY KEY,"
+                + AddingExpenses.COLUMN_PRODUCT_NAME + " TEXT,"
+                + AddingExpenses.COLUMN_PRODUCT_PRICE + " TEXT,"
+                + AddingExpenses.COLUMN_PRICE_SIGN + " TEXT,"
+                + AddingExpenses.COLUMN_PRODUCT_CATEGORY + " INTEGER,"
+                + AddingExpenses.COLUMN_DATE_REGISTERED + " TEXT"
+                + ")";
+        db.execSQL(CREATE_EXPENSES_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        db.execSQL("DROP TABLE IF EXISTS " + AddingExpenses.TABLE_NAME);
-//        onCreate(db);
-    }
-
-    void loadDatabaseFromFile() {
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
-        try {
-            File file = new File(MoneyTrackerContract.DATA_BASE_PATH);
-            if (!file.exists()) {
-                this.getReadableDatabase();
-                inputStream = myContext.getAssets().open(MoneyTrackerContract.DATA_BASE_NAME);
-                String outFileName = MoneyTrackerContract.DATA_BASE_PATH;
-                outputStream = new FileOutputStream(outFileName);
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, length);
-                }
-                outputStream.flush();
-            }
-        } catch (IOException ex) {
-            Log.d("DatabaseHelper", ex.getMessage());
-        } finally {
-            try {
-                if (outputStream != null) outputStream.close();
-                if (inputStream != null) inputStream.close();
-
-            } catch (IOException ex) {
-                Log.d("DatabaseHelper", ex.getMessage());
-            }
-        }
+        db.execSQL("DROP TABLE IF EXISTS " + AddingExpenses.TABLE_NAME);
+        onCreate(db);
     }
 
     public SQLiteDatabase open() throws SQLException {
