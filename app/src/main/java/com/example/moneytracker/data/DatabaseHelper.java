@@ -42,7 +42,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public SQLiteDatabase open() throws SQLException {
-        return SQLiteDatabase.openDatabase(MoneyTrackerContract.DATA_BASE_PATH, null, SQLiteDatabase.OPEN_READWRITE);
-    }
 }

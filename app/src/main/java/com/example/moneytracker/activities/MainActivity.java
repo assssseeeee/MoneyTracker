@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -25,22 +26,25 @@ import com.example.moneytracker.data.MoneyTrackerContract;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final int PRODUCT_LOADER = 123;
+    Uri currentProductUri;
     private Button buttonIncomeList, buttonExpenseList;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         buttonIncomeList = findViewById(R.id.buttonIncomeList);
         buttonExpenseList = findViewById(R.id.buttonExpenseList);
+        recyclerView = findViewById(R.id.recyclerViewProduct);
+
         buttonIncomeList.setOnClickListener(this);
         buttonExpenseList.setOnClickListener(this);
 
-        recyclerView = findViewById(R.layout.recycler_view);
+
 
     }
 
