@@ -1,61 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/padding_small">
+    <data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        <variable
+            name="unitOfGoods"
+            type="com.example.moneytracker.RecyclerViewItem" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/padding_small">
 
-        <TextView
-            android:id="@+id/itemNameTextViewCardView"
-            android:layout_width="@dimen/no_padding"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/padding_very_small"
-            android:paddingStart="@dimen/padding"
-            android:background="@color/orange"
-            android:textColor="@color/white"
-            android:textSize="@dimen/normal_text"
-            app:layout_constraintBottom_toTopOf="@+id/itemDateTextViewCardView"
-            app:layout_constraintHorizontal_weight="5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/itemPriceTextViewCardView"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="food" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/itemDateTextViewCardView"
-            android:layout_width="@dimen/no_padding"
-            android:layout_height="wrap_content"
-            android:background="@color/orange"
-            android:textColor="@color/white"
-            android:paddingLeft="@dimen/padding"
-            android:textSize="@dimen/small_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/itemPriceTextViewCardView"
-            app:layout_constraintTop_toBottomOf="@+id/itemNameTextViewCardView"
-            tools:text="01/01/01" />
+            <TextView
+                android:id="@+id/itemNameTextViewCardView"
+                android:layout_width="@dimen/no_padding"
+                android:layout_height="wrap_content"
+                android:background="@color/orange"
+                android:paddingVertical="@dimen/padding_very_small"
+                android:paddingStart="@dimen/padding"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal_text"
+                app:layout_constraintBottom_toTopOf="@+id/itemDateTextViewCardView"
+                app:layout_constraintHorizontal_weight="5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/itemPriceTextViewCardView"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="food" />
 
-        <TextView
-            android:id="@+id/itemPriceTextViewCardView"
-            android:layout_width="@dimen/no_padding"
-            android:layout_height="@dimen/no_padding"
-            android:background="@color/red"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/normal_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@+id/itemNameTextViewCardView"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="50" />
+            <TextView
+                android:id="@+id/itemDateTextViewCardView"
+                android:layout_width="@dimen/no_padding"
+                android:layout_height="wrap_content"
+                android:background="@color/orange"
+                android:paddingLeft="@dimen/padding"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/itemPriceTextViewCardView"
+                app:layout_constraintTop_toBottomOf="@+id/itemNameTextViewCardView"
+                tools:text="01/01/01" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/itemPriceTextViewCardView"
+                android:layout_width="@dimen/no_padding"
+                android:layout_height="@dimen/no_padding"
+                android:background="@color/red"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@+id/itemNameTextViewCardView"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="50" />
 
-</androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
