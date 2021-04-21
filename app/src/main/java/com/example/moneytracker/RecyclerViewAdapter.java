@@ -1,5 +1,7 @@
 package com.example.moneytracker;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.moneytracker.data.MoneyTrackerContract;
+
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewViewHolder> {
-
-    private ArrayList<RecyclerViewItem> arrayList;
+    Context context;
+    Cursor cursor;
 
     public static class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
         TextView itemNameTextViewCardView;
@@ -25,10 +29,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             itemDateTextViewCardView = itemView.findViewById(R.id.itemDateTextViewCardView);
             itemPriceTextViewCardView = itemView.findViewById(R.id.itemPriceTextViewCardView);
         }
+
+        public void bindCursor(Cursor cursor){
+            String itemName = cursor.getString(cursor.getColumnIndexOrThrow(MoneyTrackerContract.AddingExpenses.COLUMN_PRODUCT_NAME));
+            String itemPrice = cursor.getString(cursor.getColumnIndexOrThrow(MoneyTrackerContract.AddingExpenses.COLUMN_PRODUCT_PRICE));
+            String itemDateRegistered = cursor.getString(cursor.getColumnIndexOrThrow(MoneyTrackerContract.AddingExpenses.COLUMN_DATE_REGISTERED));
+
+            itemNameTextViewCardView.setText(itemName);
+            itemDateTextViewCardView.setText(itemDateRegistered);
+            itemPriceTextViewCardView.setText(itemPrice);
+        }
     }
 
-    public RecyclerViewAdapter(ArrayList<RecyclerViewItem> arrayList) {
-        this.arrayList = arrayList;
+    public RecyclerViewAdapter(Context context, Cursor cursor) {
+        this.context = context;
+        this.cursor = cursor;
     }
 
     @NonNull
@@ -42,14 +57,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewViewHolder holder, int position) {
-        RecyclerViewItem recyclerViewItem = arrayList.get(position);
-        holder.itemNameTextViewCardView.setText(recyclerViewItem.getItemNameTextViewCardViewString());
-        holder.itemDateTextViewCardView.setText(recyclerViewItem.getItemDateTextViewCardViewString());
-        holder.itemPriceTextViewCardView.setText(recyclerViewItem.getItemPriceTextViewCardViewString());
+        cursor.moveToPosition(position);
+        holder.bindCursor(cursor);
     }
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return cursor.getCount();
     }
 }

@@ -7,6 +7,7 @@ import androidx.core.app.NavUtils;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -44,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonIncomeList.setOnClickListener(this);
         buttonExpenseList.setOnClickListener(this);
 
+        adapter = new RecyclerViewAdapter(this, null);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
 
 
     }
@@ -110,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         String selection = null;
-
         CursorLoader cursorLoader = new CursorLoader(this, MoneyTrackerContract.AddingExpenses.CONTENT_URI,
                 projection, selection, null, null);
         return cursorLoader;
